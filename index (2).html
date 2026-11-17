@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NAMED Lab Homepage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Layout idea: Apple-like rhythm — one idea per band, huge tight headlines, navy bands as punctuation. */
+  --navy:#0a2040;        /* Hanbat-tone deep navy: hero, CTA, footer */
+  --blue:#0f4fa8;        /* primary blue: links, buttons */
+  --sky:#7fc1ff;         /* light accent on navy */
+  --ink:#16191f;         /* text */
+  --muted:#667085;       /* secondary text */
+  --bg:#ffffff;
+  --bg-alt:#f4f6fa;      /* blue-biased light grey band */
+  --line:#dfe4ec;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Inter","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+  --maxw:1120px;
+  --r:22px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:3px solid var(--sky);outline-offset:3px;border-radius:6px}
+h1,h2,h3{margin:0;text-wrap:balance;letter-spacing:-.022em;line-height:1.08;font-weight:700}
+p{margin:0}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.band{padding:96px 0}
+.band.alt{background:var(--bg-alt)}
+.band.navy{background:var(--navy);color:#fff}
+.eyebrow{font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+.navy .eyebrow{color:var(--sky)}
+.h-xl{font-size:clamp(44px,7.4vw,88px);letter-spacing:-.035em;line-height:1.02}
+.h-lg{font-size:clamp(34px,4.8vw,56px)}
+.h-md{font-size:clamp(24px,2.6vw,32px)}
+.lead{font-size:clamp(19px,2vw,24px);line-height:1.4;color:var(--muted);max-width:44ch}
+.navy .lead{color:#c5d3e8}
+.head{display:flex;flex-direction:column;gap:14px;margin-bottom:48px}
+.head.row{flex-direction:row;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:999px;font-size:17px;font-weight:500;border:1px solid transparent;cursor:pointer;font-family:inherit}
+.btn:hover{text-decoration:none}
+.btn.pri{background:var(--blue);color:#fff}
+.btn.pri:hover{background:#0c428d}
+.btn.light{background:#fff;color:var(--navy)}
+.btn.light:hover{background:#e8effa}
+.btn.ghost{border-color:rgba(255,255,255,.45);color:#fff}
+.btn.ghost:hover{background:rgba(255,255,255,.1)}
+.more{font-size:17px;font-weight:500;white-space:nowrap}
+.more::after{content:" ›"}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.78);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(10,32,64,.08)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:52px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink);font-weight:700;letter-spacing:-.01em;font-size:17px}
+.brand:hover{text-decoration:none}
+.brand img{height:26px;width:auto}
+.brand small{font-weight:500;color:var(--muted);font-size:12px;letter-spacing:.02em}
+.links{display:flex;gap:28px;align-items:center}
+.links a{color:var(--ink);font-size:14px;opacity:.82}
+.links a:hover{opacity:1;text-decoration:none}
+.links a[aria-current="page"]{opacity:1;font-weight:600;color:var(--blue)}
+.links a.cta{background:var(--blue);color:#fff;opacity:1;padding:6px 14px;border-radius:999px;font-weight:500}
+.dd{position:relative;display:flex;align-items:center;height:52px}
+.dd>a::after{content:"";display:inline-block;width:5px;height:5px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);margin:0 0 3px 7px}
+.ddm{display:none;position:absolute;top:100%;left:-18px;min-width:170px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:8px;box-shadow:0 12px 32px rgba(10,32,64,.14);flex-direction:column}
+.dd:hover .ddm,.dd:focus-within .ddm{display:flex}
+.ddm a{padding:9px 12px;border-radius:8px;font-size:14px;white-space:nowrap}
+.ddm a:hover{background:var(--bg-alt)}
+.sub-h:first-child{margin-top:0;padding-top:0;border-top:0}
+.burger{display:none;background:none;border:0;padding:10px;margin-right:-10px;cursor:pointer}
+.burger span{display:block;width:20px;height:1.5px;background:var(--ink);margin:5px 0;transition:transform .25s ease,opacity .2s ease}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+@media (prefers-reduced-motion:reduce){.burger span,.dd>a::after{transition:none}}
+@media (max-width:820px){
+  .burger{display:block}
+  .links{display:none;position:absolute;top:52px;left:0;right:0;background:#fff;flex-direction:column;align-items:flex-start;gap:0;padding:8px 24px 20px;border-bottom:1px solid var(--line)}
+  .links.open{display:flex}
+  .links a{font-size:20px;font-weight:600;padding:12px 0;width:100%;border-bottom:1px solid var(--line)}
+  .links a.cta{background:none;color:var(--blue);padding:12px 0;border-radius:0}
+  .dd{display:block;height:auto;width:100%}
+  .dd>a{display:flex;justify-content:space-between;align-items:center}
+  .dd>a::after{width:8px;height:8px;margin:0 6px 4px 0;transition:transform .25s ease}
+  .dd.open>a::after{transform:rotate(225deg);margin-bottom:-4px}
+  .links .dd .ddm{display:none;position:static;border:0;box-shadow:none;padding:0 0 0 18px;min-width:0;border-radius:0;border-bottom:1px solid var(--line)}
+  .links .dd.open .ddm{display:flex}
+  .ddm a{padding:11px 0;border-radius:0;font-size:17px;font-weight:500;border-bottom:0}
+  .ddm a:hover{background:none}
+  .ddm a+a{border-top:1px solid var(--line)}
+}
+
+/* pages */
+.page{display:none}
+.page.on{display:block;animation:in .45s ease both}
+@keyframes in{from{opacity:.0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.page.on{animation:none}html{scroll-behavior:auto}}
+
+/* hero */
+.hero{position:relative;background:var(--navy);color:#fff;overflow:hidden}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(90% 70% at 30% 45%,rgba(10,32,64,.86) 0%,rgba(10,32,64,.35) 60%,rgba(10,32,64,0) 100%);pointer-events:none}
+.hero .wrap{position:relative;z-index:2;padding-top:120px;padding-bottom:104px;display:flex;flex-direction:column;gap:26px}
+.hero .lead{color:#d3def0;max-width:40ch}
+.hero .acts{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+.hero .aff{margin-top:36px;font-size:14px;color:#9fb4d3;letter-spacing:.02em}
+.sub-hero{background:var(--bg-alt);padding:88px 0 72px}
+.sub-hero .wrap{display:flex;flex-direction:column;gap:18px}
+
+/* statement + stats */
+.statement{font-size:clamp(28px,4vw,48px);font-weight:700;letter-spacing:-.028em;line-height:1.14;max-width:22ch}
+.statement em{font-style:normal;color:var(--blue)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:64px;border-top:1px solid var(--line);padding-top:32px}
+.stat b{display:block;font-size:clamp(36px,4.6vw,56px);letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.stat span{display:block;margin-top:10px;font-size:14px;color:var(--muted)}
+@media (max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* bento */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+.card{background:#fff;border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}
+.alt .card{box-shadow:0 1px 0 rgba(10,32,64,.04)}
+.bento .card{grid-column:span 2}
+.bento .card.wide{grid-column:span 6;flex-direction:row;align-items:stretch}
+.bento .card.wide .art{flex:1.15;aspect-ratio:auto;min-height:320px}
+.bento .card.wide .txt{flex:1;justify-content:center}
+.bento .card.half{grid-column:span 3}
+.art{position:relative;aspect-ratio:16/10;background:#e9eff8}
+.art canvas{position:absolute;inset:0;width:100%;height:100%}
+.txt{padding:28px 28px 32px;display:flex;flex-direction:column;gap:10px}
+.txt .k{font-size:13px;font-weight:600;color:var(--blue);letter-spacing:.02em}
+.txt p{color:var(--muted);font-size:16px}
+@media (max-width:820px){.bento .card,.bento .card.half{grid-column:span 6}.bento .card.wide{flex-direction:column}.bento .card.wide .art{min-height:0;aspect-ratio:16/10}}
+
+/* lists */
+.rows{border-top:1px solid var(--line)}
+.rowi{display:grid;grid-template-columns:150px 1fr;gap:24px;padding:24px 0;border-bottom:1px solid var(--line)}
+.rowi .j{font-weight:600;font-size:15px}
+.rowi .j small{display:block;color:var(--muted);font-weight:400;margin-top:2px}
+.rowi .t{font-size:19px;font-weight:600;letter-spacing:-.012em;line-height:1.3}
+.rowi .a{font-size:14px;color:var(--muted);margin-top:8px}
+.rowi .a b{color:var(--ink);font-weight:600}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;background:#e6eefb;color:var(--blue);margin:8px 6px 0 0;white-space:nowrap}
+.pill.dark{background:var(--navy);color:#fff}
+@media (max-width:640px){.rowi{grid-template-columns:1fr;gap:8px}}
+
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:28px 20px}
+@media (max-width:900px){.grid3{grid-template-columns:repeat(2,1fr)}.grid4{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:560px){.grid3{grid-template-columns:1fr}.grid4{grid-template-columns:repeat(2,1fr)}}
+
+/* media with fallback */
+.ph{position:relative;background:linear-gradient(140deg,#123563 0%,#0f4fa8 60%,#3d86d8 100%);overflow:hidden}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none}
+.ph.ok img{display:block}
+.ph .lbl{position:absolute;left:20px;bottom:16px;color:#fff;font-weight:700;font-size:28px;letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums}
+.ph .lbl small{display:block;font-size:12px;font-weight:500;opacity:.75;letter-spacing:.06em;margin-bottom:6px;text-transform:uppercase}
+.ph.ok .lbl{display:none}
+.ph::before{content:"";position:absolute;inset:-40%;background:repeating-linear-gradient(115deg,rgba(255,255,255,.07) 0 1px,transparent 1px 22px),repeating-linear-gradient(28deg,rgba(255,255,255,.05) 0 1px,transparent 1px 34px)}
+.ph.ok::before{display:none}
+.news .ph{aspect-ratio:16/10}
+.news .txt time{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.news .txt h3{font-size:18px;line-height:1.4;letter-spacing:-.01em;font-weight:600}
+.gal .ph{aspect-ratio:3/2;border-radius:var(--r)}
+.gal figcaption{padding:14px 4px 0}
+.gal figcaption b{display:block;font-size:16px;font-weight:600;line-height:1.35}
+.gal figcaption span{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+figure{margin:0}
+
+/* people */
+.pi{display:grid;grid-template-columns:340px 1fr;gap:56px;align-items:start}
+.pi .ph{aspect-ratio:390/426;border-radius:var(--r)}
+.av{display:flex;align-items:center;justify-content:center}
+.av .ini{color:#fff;font-size:44px;font-weight:700;letter-spacing:-.02em;opacity:.92;position:relative}
+.av.ok .ini{display:none}
+.pi dl{margin:28px 0 0;display:grid;grid-template-columns:120px 1fr;gap:10px 16px;font-size:16px}
+.pi dt{color:var(--muted)}
+.pi dd{margin:0}
+.tl{margin-top:36px;display:grid;grid-template-columns:1fr 1fr;gap:36px}
+.tl h3{font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:14px}
+.tl li{display:grid;grid-template-columns:104px 1fr;gap:12px;padding:12px 0;border-top:1px solid var(--line);font-size:15px}
+.tl ul{list-style:none;margin:0;padding:0}
+.tl .y{color:var(--muted);font-variant-numeric:tabular-nums}
+.tl small{display:block;color:var(--muted)}
+@media (max-width:860px){.pi{grid-template-columns:1fr;gap:32px}.pi .ph{max-width:300px}.tl{grid-template-columns:1fr}}
+.mem .ph{aspect-ratio:269/323;border-radius:18px}
+.mem b{display:block;margin-top:14px;font-size:17px;font-weight:600;letter-spacing:-.01em}
+.mem .ko{color:var(--muted);font-weight:400;font-size:14px;margin-left:4px}
+.mem span{display:block;font-size:14px;color:var(--muted);line-height:1.4}
+.mem .role{color:var(--blue);font-weight:500}
+.open .ph{background:var(--bg-alt);border:1.5px dashed #b9c4d6}
+.open .ph::before{display:none}
+.open .ini{color:var(--blue);font-size:17px;font-weight:600}
+.sub-h{font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:64px 0 24px;padding-top:24px;border-top:1px solid var(--line)}
+
+/* research */
+.thrust{display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:center}
+.thrust.flip .fig{order:-1}
+.thrust ul{margin:22px 0 0;padding:0;list-style:none}
+.thrust li{padding:12px 0 12px 22px;border-top:1px solid var(--line);position:relative;font-size:16px}
+.thrust li::before{content:"";position:absolute;left:2px;top:22px;width:7px;height:7px;border-radius:50%;background:var(--blue)}
+.thrust .no{font-size:14px;font-weight:600;color:var(--blue);letter-spacing:.08em}
+.fig{position:relative;border-radius:var(--r);overflow:hidden;background:#e9eff8;aspect-ratio:2/1}
+.fig canvas{position:absolute;inset:0;width:100%;height:100%}
+.fig img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff;display:none}
+.fig.ok img{display:block}
+@media (max-width:860px){.thrust{grid-template-columns:1fr;gap:28px}.thrust.flip .fig{order:0}}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15px;min-width:720px;table-layout:fixed}
+th:nth-child(1){width:38%}th:nth-child(2){width:30%}th:nth-child(3){width:17%}th:nth-child(4){width:15%}
+th{text-align:left;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:0 16px 12px 0;border-bottom:1px solid var(--ink)}
+td{padding:18px 16px 18px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td.p{font-weight:600;font-size:16px;line-height:1.35;max-width:46ch}
+td.d{white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--muted)}
+
+/* publications */
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:28px}
+.chip{border:1px solid var(--line);background:#fff;color:var(--ink);padding:8px 16px;border-radius:999px;font-size:14px;font-family:inherit;cursor:pointer;font-variant-numeric:tabular-nums}
+.chip:hover{border-color:var(--blue)}
+.chip[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.search{flex:1;min-width:220px;padding:10px 18px;border-radius:999px;border:1px solid var(--line);font:inherit;font-size:15px;background:var(--bg-alt)}
+.yr{font-size:clamp(28px,3.4vw,40px);font-weight:700;letter-spacing:-.03em;margin:48px 0 8px;font-variant-numeric:tabular-nums}
+.count{font-size:14px;color:var(--muted)}
+
+/* publication figure accordion */
+.figd{margin-top:12px}
+.figd summary{display:inline-flex;align-items:center;gap:8px;cursor:pointer;list-style:none;font-size:14px;font-weight:500;color:var(--blue);padding:6px 14px 6px 12px;border:1px solid var(--line);border-radius:999px;user-select:none}
+.figd summary::-webkit-details-marker{display:none}
+.figd summary::before{content:"";width:7px;height:7px;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;transform:rotate(-45deg);transition:transform .25s ease;margin-top:-1px}
+.figd[open] summary::before{transform:rotate(45deg);margin-top:-4px}
+.figd summary:hover{border-color:var(--blue)}
+.figd[open] summary{background:var(--navy);border-color:var(--navy);color:#fff}
+.figd .s-hide{display:none}.figd[open] .s-show{display:none}.figd[open] .s-hide{display:inline}
+.figp{margin-top:16px;border-radius:var(--r);overflow:hidden;background:var(--bg-alt);animation:in .35s ease both;max-width:760px}
+.figp img{width:100%;height:auto;background:#fff}
+.figp .empty{aspect-ratio:16/7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:1.5px dashed #b9c4d6;border-radius:var(--r);color:var(--muted);font-size:15px;text-align:center;padding:16px}
+.figp .empty code{font-size:12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#8a96aa}
+.figp figcaption{padding:12px 18px 14px;font-size:13px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.figp{animation:none}.figd summary::before{transition:none}}
+
+/* publication numbers */
+.rowi.num{grid-template-columns:44px 150px 1fr}
+.rowi .no{font-size:15px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums;padding-top:2px}
+@media (max-width:640px){.rowi.num{grid-template-columns:1fr}.rowi .no::before{content:"No. "}}
+
+/* admin mode */
+.adm{display:none}
+body.admin .adm{display:inline-flex}
+.ebtn{align-self:flex-start;align-items:center;font:500 13px/1 var(--font);letter-spacing:0;text-transform:none;padding:8px 14px;border-radius:999px;border:1px solid var(--blue);background:#fff;color:var(--blue);cursor:pointer;margin-top:10px}
+.ebtn:hover{background:var(--blue);color:#fff}
+#admFab{position:fixed;right:20px;bottom:20px;z-index:60;font:600 14px/1 var(--font);padding:14px 20px;border-radius:999px;border:0;background:var(--navy);color:#fff;cursor:pointer;box-shadow:0 8px 28px rgba(10,32,64,.3)}
+#admFab[aria-pressed="true"]{background:var(--blue)}
+body.admin .nav{border-bottom:3px solid var(--blue)}
+#admOut{position:fixed;right:150px;bottom:20px;z-index:60;font:500 13px/1 var(--font);padding:14px 16px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;box-shadow:0 8px 28px rgba(10,32,64,.15)}
+#admLink{background:none;border:0;padding:0;font:inherit;color:#5d7195;cursor:pointer;text-decoration:underline}
+.modal{position:fixed;inset:0;z-index:80;background:rgba(7,23,48,.5);display:flex;align-items:flex-start;justify-content:center;padding:24px 16px;overflow-y:auto}
+.modal[hidden]{display:none}
+.sheet{background:#fff;border-radius:var(--r);padding:28px;width:100%;max-width:520px;margin:auto 0}
+.sheet h2{font-size:24px;margin-bottom:8px}
+.fl{display:block;font-size:13px;font-weight:600;color:var(--muted);margin:16px 0 6px}
+.fl.chk{display:flex;gap:8px;align-items:center;color:var(--ink);font-size:15px}
+.sheet input:not([type=checkbox]):not([type=file]),.sheet textarea,.sheet select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font:inherit;font-size:15px;background:#fff;color:var(--ink)}
+.sheet textarea{resize:vertical}
+.sheet input[type=file]{font:inherit;font-size:14px;max-width:100%}
+.mprev{margin-top:12px;max-height:140px;border-radius:10px;border:1px solid var(--line)}
+.mmsg{font-size:14px;color:#b42318;min-height:20px;margin-top:14px}
+.mbtns{display:flex;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap}
+.mbtns .btn{font-size:15px;padding:10px 20px}
+.btn.sec{background:var(--bg-alt);color:var(--ink)}
+.btn.del{background:#fff;border-color:#f0b4ae;color:#b42318}
+.btn:disabled{opacity:.5;cursor:default}
+
+/* detail viewer (news article, gallery lightbox) */
+.clk{cursor:pointer;transition:transform .25s ease}
+.clk:hover{transform:translateY(-3px)}
+.gal .ph .cnt{position:absolute;right:12px;top:12px;background:rgba(7,23,48,.7);color:#fff;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;z-index:1}
+.vsheet{background:#fff;border-radius:var(--r);max-width:920px;width:100%;margin:auto 0;overflow:hidden;position:relative}
+.vclose{position:absolute;top:12px;right:12px;z-index:3;width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,.92);font-size:22px;line-height:1;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.vimg,.vstage{position:relative;background:#071730;display:flex;align-items:center;justify-content:center}
+.vstage{min-height:240px}
+.vimg img,.vstage img{max-width:100%;max-height:68vh}
+.vnone{color:#9fb4d3;padding:90px 0;font-size:15px}
+.vnav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.9);font-size:26px;line-height:1;cursor:pointer;color:var(--navy)}
+.vnav.prev{left:12px}.vnav.next{right:12px}
+.vcount{position:absolute;bottom:10px;right:14px;color:#fff;font-size:13px;background:rgba(0,0,0,.5);padding:3px 10px;border-radius:999px;font-variant-numeric:tabular-nums}
+.vthumbs{display:flex;gap:8px;padding:12px 16px;overflow-x:auto;background:var(--bg-alt)}
+.vthumbs button{flex:0 0 auto;width:76px;height:56px;padding:0;border:2px solid transparent;border-radius:8px;overflow:hidden;cursor:pointer;background:#dfe4ec}
+.vthumbs button.on{border-color:var(--blue)}
+.vthumbs img{width:100%;height:100%;object-fit:cover}
+.vtxt{padding:28px 32px 36px;display:flex;flex-direction:column;gap:14px}
+.vtxt h2{font-size:clamp(22px,2.6vw,30px);line-height:1.3;letter-spacing:-.015em}
+.vbody{white-space:pre-wrap;font-size:17px;line-height:1.75;color:#333a45;max-width:68ch}
+.mthumbs{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.mthumbs label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);align-items:center}
+.mthumbs img{width:84px;height:62px;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
+@media (prefers-reduced-motion:reduce){.clk{transition:none}.clk:hover{transform:none}}
+
+/* pagination bar */
+.pager{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px;margin-top:48px}
+.pager[hidden]{display:none}
+.pager button{min-width:40px;height:40px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink);font:500 15px/1 var(--font);font-variant-numeric:tabular-nums;cursor:pointer}
+.pager button:hover:not(:disabled){border-color:var(--blue);color:var(--blue)}
+.pager button[aria-current="page"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.pager button:disabled{opacity:.35;cursor:default}
+.pager .gap{color:var(--muted);padding:0 4px}
+.pager .goto{display:inline-flex;align-items:center;gap:8px;margin-left:18px;font-size:14px;color:var(--muted)}
+.pager .goto input{width:64px;height:40px;border:1px solid var(--line);border-radius:10px;padding:0 10px;font:inherit;font-size:15px;text-align:center;color:var(--ink);background:#fff}
+#pubList,#patList,#allNews,#galGrid{scroll-margin-top:84px}
+@media (max-width:560px){.pager .goto{margin-left:0;width:100%;justify-content:center;margin-top:10px}}
+
+/* partners, join, footer */
+.partners{display:flex;flex-wrap:wrap;gap:14px}
+.partners span{padding:16px 26px;border:1px solid var(--line);border-radius:16px;font-weight:600;font-size:17px;color:#33415a;background:#fff}
+.partners small{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+.cta-band{text-align:left;display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:end}
+@media (max-width:820px){.cta-band{grid-template-columns:1fr}}
+.pos{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.pos div{background:#fff;border-radius:18px;padding:22px 20px;display:flex;flex-direction:column;gap:6px;min-height:120px;justify-content:flex-end}
+.pos b{font-size:16px;line-height:1.25;letter-spacing:-.01em}
+.pos span{font-size:14px;color:var(--muted)}
+@media (max-width:900px){.pos{grid-template-columns:repeat(2,1fr)}}
+.benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.benefits div{border-top:2px solid var(--blue);padding-top:18px}
+.benefits b{display:block;font-size:19px;letter-spacing:-.012em;line-height:1.3}
+.benefits span{display:block;margin-top:8px;color:var(--muted);font-size:15px}
+@media (max-width:760px){.benefits{grid-template-columns:1fr}}
+.contact{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.contact div{border-top:1px solid rgba(255,255,255,.25);padding-top:18px}
+.contact small{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--sky);margin-bottom:8px;font-weight:600}
+.contact a{color:#fff;font-size:19px;font-weight:600}
+.contact p{font-size:17px;line-height:1.45}
+@media (max-width:760px){.contact{grid-template-columns:1fr}}
+footer{background:#071730;color:#93a5c2;font-size:13px;padding:36px 0}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{color:#c5d3e8}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#home"><img id="logo" alt="" style="display:none"><span>NAMED Lab <small>HBNU</small></span></a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="links" id="links">
+      <a href="#home">Home</a>
+      <a href="#research">Research</a>
+      <div class="dd">
+        <a href="#pi" data-group="people" aria-haspopup="true">People</a>
+        <div class="ddm"><a href="#pi">PI</a><a href="#researchers">Researchers</a><a href="#alumni">Alumni</a></div>
+      </div>
+      <div class="dd">
+        <a href="#publications" data-group="pubs" aria-haspopup="true">Publications</a>
+        <div class="ddm"><a href="#publications">International Journals</a><a href="#patents">Patents</a></div>
+      </div>
+      <a href="#news">News</a>
+      <a href="#gallery">Gallery</a>
+      <a class="cta" href="#join">Join us</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= HOME ================= -->
+<div class="page" data-page="home">
+  <section class="hero">
+    <canvas id="heroCanvas" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <p class="eyebrow" style="color:var(--sky)">Nano Advanced Manufacturing and Engineering Devices Lab</p>
+      <h1 class="h-xl">The future of<br>wearable healthcare.</h1>
+      <p class="lead">Electrospinning · Micro/Nano Manufacturing · Functional Materials</p>
+      <div class="acts">
+        <a class="btn light" href="#research">Explore our research</a>
+        <a class="btn ghost" href="#join">Join the lab</a>
+      </div>
+      <p class="aff">Department of Mechanical Engineering · Hanbat National University, Daejeon</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <p class="statement">We turn micro- and nanoscale fibers into textiles that <em>sense, diagnose, and treat</em> on the skin.</p>
+      <div class="stats">
+        <div class="stat"><b>58</b><span>Journal papers published or accepted</span></div>
+        <div class="stat"><b>15</b><span>Journal cover features</span></div>
+        <div class="stat"><b>5</b><span>Ongoing funded projects</span></div>
+        <div class="stat"><b>2025</b><span>Lab founded at Hanbat National University</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band alt">
+    <div class="wrap">
+      <div class="head row">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <p class="eyebrow">Research fields</p>
+          <h2 class="h-lg">From a single fiber<br>to a wearable system.</h2>
+        </div>
+        <a class="more" href="#research">All research</a>
+      </div>
+      <div class="bento">
+        <article class="card wide">
+          <div class="art"><canvas data-art="fiber"></canvas></div>
+          <div class="txt">
+            <span class="k">Electrospinning · Composite Fibers · Smart Materials</span>
+            <h3 class="h-md">Functional Micro/Nanofibers</h3>
+            <p>Polymer, biomaterial, and functional composite fibers engineered through advanced electrospinning.</p>
+          </div>
+        </article>
+        <article class="card half">
+          <div class="art"><canvas data-art="nano"></canvas></div>
+          <div class="txt">
+            <span class="k">Nanotransfer Printing · Laser Processing · Micro/Nano Structuring</span>
+            <h3 class="h-md">Micro/Nano Manufacturing &amp; Integration</h3>
+            <p>Advanced fabrication and heterogeneous integration strategies for functional materials and devices.</p>
+          </div>
+        </article>
+        <article class="card half">
+          <div class="art"><canvas data-art="wear"></canvas></div>
+          <div class="txt">
+            <span class="k">Biosensing · Microneedles · Smart Dressings · Healthcare Wearables</span>
+            <h3 class="h-md">Wearable Diagnostics &amp; Therapeutics</h3>
+            <p>Fiber-based wearable platforms for continuous diagnosis, monitoring, and therapeutic applications.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="head row">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <p class="eyebrow">Selected publications</p>
+          <h2 class="h-lg">Recent work.</h2>
+        </div>
+        <a class="more" href="#publications">All publications</a>
+      </div>
+      <div class="rows" id="selPubs"></div>
+    </div>
+  </section>
+
+  <section class="band alt">
+    <div class="wrap">
+      <div class="head row">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <p class="eyebrow">News</p>
+          <h2 class="h-lg">Latest from the lab.</h2>
+        </div>
+        <a class="more" href="#news">All news</a>
+      </div>
+      <div class="grid3 news" id="homeNews"></div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Research partners</p>
+        <h2 class="h-md">We work with universities and national institutes.</h2>
+      </div>
+      <div class="partners">
+        <span>KAIST</span>
+        <span>Soongsil University</span>
+        <span>KIMM <small>Korea Institute of Machinery &amp; Materials</small></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="band navy">
+    <div class="wrap cta-band">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <p class="eyebrow">Open positions</p>
+        <h2 class="h-lg">Build the next wearable with us.</h2>
+        <p class="lead">We are looking for passionate, motivated students interested in nano/micro engineering and wearable healthcare.</p>
+      </div>
+      <div><a class="btn light" href="#join">See open positions</a></div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= RESEARCH ================= -->
+<div class="page" data-page="research">
+  <section class="sub-hero">
+    <div class="wrap">
+      <p class="eyebrow">Research</p>
+      <h1 class="h-xl" id="rIntroT" style="font-size:clamp(40px,6vw,72px)"></h1>
+      <p class="lead" id="rIntroL" style="max-width:60ch"></p>
+      <div><button class="adm ebtn" data-edit="research:intro" style="margin:0">소개글 편집</button></div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap" id="thrusts" style="display:flex;flex-direction:column;gap:104px"></div>
+  </section>
+
+  <section class="band navy">
+    <div class="wrap">
+      <p class="eyebrow">Research philosophy</p>
+      <p class="statement" id="rPhT" style="margin-top:18px;max-width:26ch"></p>
+      <p class="lead" id="rPhL" style="margin-top:24px;max-width:60ch"></p>
+      <div><button class="adm ebtn" data-edit="research:phil">문구 편집</button></div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Research projects</p>
+        <h2 class="h-lg">Ongoing</h2>
+      </div>
+      <div class="tablewrap"><table id="projOn"></table></div>
+      <h2 class="h-lg" style="margin:80px 0 48px">Completed</h2>
+      <div class="tablewrap"><table id="projDone"></table></div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= PEOPLE: PI ================= -->
+<div class="page" data-page="pi">
+  <section class="sub-hero">
+    <div class="wrap">
+      <p class="eyebrow">People</p>
+      <h1 class="h-xl" style="font-size:clamp(40px,6vw,72px)">Principal investigator.</h1>
+      <p class="lead">The professor who leads NAMED Lab.</p>
+    </div>
+  </section>
+  <section class="band">
+    <div class="wrap">
+      <div class="pi">
+        <div><div class="ph av" id="piPhoto"><span class="ini">JH</span></div><button class="adm ebtn" data-edit="pi">사진 변경</button></div>
+        <div>
+          <h2 class="h-lg">Ji-Hwan Ha <span style="font-weight:500;color:var(--muted);font-size:.5em;letter-spacing:0">하지환</span></h2>
+          <p class="lead" style="margin-top:14px;max-width:none">Assistant Professor, Department of Mechanical Engineering<br>Hanbat National University</p>
+          <dl>
+            <dt>Email</dt><dd><a href="mailto:jhha@hanbat.ac.kr">jhha@hanbat.ac.kr</a></dd>
+            <dt>Phone</dt><dd>+82-42-821-1161</dd>
+            <dt>Links</dt><dd><a href="https://scholar.google.com/citations?user=2qTNl5wAAAAJ&hl=ko" target="_blank" rel="noopener">Google Scholar</a> &nbsp;·&nbsp; <a href="https://www.namedlab.com/_files/ugd/1fcfb8_46e3c1669b6b49a0896fa7a3556505da.pdf" target="_blank" rel="noopener">Curriculum Vitae (PDF)</a></dd>
+          </dl>
+          <div class="tl">
+            <div>
+              <h3>Career</h3>
+              <ul>
+                <li><span class="y">2025 – now</span><span>Assistant Professor<small>Hanbat National University, Mechanical Engineering</small></span></li>
+                <li><span class="y">2024 – 2025</span><span>Postdoctoral Researcher<small>KIMM, Nano Lithography and Manufacturing Research Center</small></span></li>
+              </ul>
+            </div>
+            <div>
+              <h3>Education</h3>
+              <ul>
+                <li><span class="y">2020 – 2024</span><span>Ph.D., Mechanical Engineering<small>KAIST · Advisor: Prof. Inkyu Park</small></span></li>
+                <li><span class="y">2018 – 2020</span><span>M.S., Mechanical Engineering<small>Soongsil University · Advisor: Prof. Sung-Hoon Park</small></span></li>
+                <li><span class="y">2012 – 2018</span><span>B.S., Mechanical Engineering<small>Soongsil University</small></span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= PEOPLE: RESEARCHERS ================= -->
+<div class="page" data-page="researchers">
+  <section class="sub-hero">
+    <div class="wrap">
+      <p class="eyebrow">People</p>
+      <h1 class="h-xl" style="font-size:clamp(40px,6vw,72px)">Our team.</h1>
+      <p class="lead">The researchers and interns of NAMED Lab.</p>
+    </div>
+  </section>
+  <section class="band">
+    <div class="wrap">
+      <h3 class="sub-h">Researchers &nbsp;<button class="adm ebtn" data-add="people" data-g="researcher" style="margin:0">＋ 구성원 추가</button></h3>
+      <div class="grid4" id="researchers"></div>
+      <h3 class="sub-h">Interns &nbsp;<button class="adm ebtn" data-add="people" data-g="intern" style="margin:0">＋ 인턴 추가</button></h3>
+      <div class="grid4" id="interns"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= PEOPLE: ALUMNI ================= -->
+<div class="page" data-page="alumni">
+  <section class="sub-hero">
+    <div class="wrap">
+      <p class="eyebrow">People</p>
+      <h1 class="h-xl" style="font-size:clamp(40px,6vw,72px)">Alumni.</h1>
+      <p class="lead">Former members of NAMED Lab and where they are now.</p>
+    </div>
+  </section>
+  <section class="band">
+    <div class="wrap">
+      <div class="adm" style="margin-bottom:28px"><button class="ebtn" data-add="people" data-g="alumni" style="margin:0">＋ 졸업생 추가</button></div>
+      <div class="grid4" id="alumni"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= PUBLICATIONS ================= -->
+<div class="page" data-page="publications">
+  <section class="sub-hero">
+    <div class="wrap">
+      <p class="eyebrow">Publications</p>
+      <h1 class="h-xl" style="font-size:clamp(40px,6vw,72px)">International journals.</h1>
+      <p class="lead" style="max-width:56ch">† co-first author &nbsp;·&nbsp; * corresponding author</p>
+    </div>
+  </section>
+  <section class="band" style="padding-top:56px">
+    <div class="wrap">
+      <div class="tools">
+        <button class="chip" data-f="all" aria-pressed="true">All</button>
+        <button class="chip" data-f="first" aria-pressed="false">First/Corresponding</button>
+        <button class="chip" data-f="cover" aria-pressed="false">Cover articles</button>
+        <label for="q" style="position:absolute;left:-9999px">Search publications</label>
+        <input class="search" id="q" type="search" placeholder="Search title, author, or journal">
+        <button class="adm ebtn" data-add="pubs" style="margin:0">＋ 논문 추가</button>
+      </div>
+      <p class="count" id="pubCount"></p>
+      <div id="pubList"></div>
+      <nav class="pager" id="pubPager" aria-label="Publication pages" hidden></nav>
+    </div>
+  </section>
+</div>
+
+<!-- ================= PATENTS ================= -->
+<div class="page" data-page="patents">
+  <section class="sub-hero">
+    <div class="wrap">
+      <p class="eyebrow">Publications</p>
+      <h1 class="h-xl" style="font-size:clamp(40px,6vw,72px)">Patents.</h1>
+      <p class="lead">Registered and filed patents.</p>
+    </div>
+  </section>
+  <section class="band" style="padding-top:56px">
+    <div class="wrap">
+      <div class="adm" style="margin-bottom:28px"><button class="ebtn" data-add="patents" style="margin:0">＋ 특허 추가</button></div>
+      <p class="count" id="patCount"></p>
+      <div id="patList"></div>
+      <nav class="pager" id="patPager" aria-label="Patent pages" hidden></nav>
+    </div>
+  </section>
+</div>
+
+<!-- ================= NEWS ================= -->
+<div class="page" data-page="news">
+  <section class="sub-hero">
+    <div class="wrap">
+      <p class="eyebrow">News</p>
+      <h1 class="h-xl" style="font-size:clamp(40px,6vw,72px)">Lab news.</h1>
+      <p class="lead">Awards, papers, and announcements.</p>
+    </div>
+  </section>
+  <section class="band"><div class="wrap"><div class="adm" style="margin-bottom:28px"><button class="ebtn" data-add="news" style="margin:0">＋ 뉴스 추가</button></div><div class="grid3 news" id="allNews"></div><nav class="pager" id="newsPager" aria-label="News pages" hidden></nav></div></section>
+</div>
+
+<!-- ================= GALLERY ================= -->
+<div class="page" data-page="gallery">
+  <section class="sub-hero">
+    <div class="wrap">
+      <p class="eyebrow">Gallery</p>
+      <h1 class="h-xl" style="font-size:clamp(40px,6vw,72px)">Life at NAMED Lab.</h1>
+      <p class="lead">Conferences, seminars, and everyday moments.</p>
+    </div>
+  </section>
+  <section class="band"><div class="wrap"><div class="adm" style="margin-bottom:28px"><button class="ebtn" data-add="gallery" style="margin:0">＋ 사진 추가</button></div><div class="grid3 gal" id="galGrid"></div><nav class="pager" id="galPager" aria-label="Gallery pages" hidden></nav></div></section>
+</div>
+
+<!-- ================= JOIN ================= -->
+<div class="page" data-page="join">
+  <section class="sub-hero">
+    <div class="wrap">
+      <p class="eyebrow">Join us</p>
+      <h1 class="h-xl" style="font-size:clamp(40px,6vw,72px)">We are recruiting.</h1>
+      <p class="lead" style="max-width:58ch">NAMED Lab is seeking passionate and motivated students interested in nano/micro engineering and wearable healthcare applications.</p>
+      <p style="color:var(--muted);font-size:16px;max-width:58ch">나노/마이크로 공학과 웨어러블 헬스케어에 관심 있는 열정적인 학생을 기다립니다.</p>
+    </div>
+  </section>
+
+  <section class="band alt" style="padding-top:0">
+    <div class="wrap">
+      <div class="pos">
+        <div><b>Undergraduate Student Researcher</b><span>학부연구원</span></div>
+        <div><b>Combined Bachelor–Master Program</b><span>학석 통합과정</span></div>
+        <div><b>M.S. Program</b><span>석사 과정</span></div>
+        <div><b>Ph.D. Program</b><span>박사 과정</span></div>
+        <div><b>Post-doctoral Researcher</b><span>박사후연구원</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">What we offer</p>
+        <h2 class="h-lg">Support for your growth.</h2>
+      </div>
+      <div class="benefits">
+        <div><b>Conference presentations</b><span>Opportunities to present at domestic and international conferences<br>국내외 학술대회 발표 기회 제공</span></div>
+        <div><b>High-impact publishing</b><span>Guidance for publishing your research in high-impact SCI journals<br>SCI급 국제 저널 논문 게재 지도</span></div>
+        <div><b>Stipends</b><span>Available for undergraduate researchers and above<br>소정의 인건비 지급 (학부연구원 이상)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band navy">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Contact</p>
+        <h2 class="h-lg">Send your CV and a short introduction.</h2>
+      </div>
+      <div class="contact">
+        <div><small>Email</small><a href="mailto:jhha@hanbat.ac.kr">jhha@hanbat.ac.kr</a></div>
+        <div><small>Phone</small><p>+82-42-821-1161</p></div>
+        <div><small>Address</small><p>Department of Mechanical Engineering, Hanbat National University<br>125 Dongseo-daero, Yuseong-gu, Daejeon, Korea</p></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 NAMED Lab · Ji-Hwan Ha · Hanbat National University &nbsp;<button id="admLink" type="button" hidden>Admin</button></span>
+    <span><a href="#research">Research</a> &nbsp; <a href="#pi">People</a> &nbsp; <a href="#publications">Publications</a> &nbsp; <a href="#join">Join us</a></span>
+  </div>
+</footer>
+
+<button id="admFab" type="button" aria-pressed="false" hidden>관리자 모드</button>
+<button id="admOut" type="button" hidden>로그아웃</button>
+<div class="modal" id="viewer" hidden><div class="vsheet" role="dialog" aria-modal="true" aria-label="Detail"><button class="vclose" data-close aria-label="Close">×</button><div id="vBody"></div></div></div>
+<div class="modal" id="modal" hidden><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="mTitle"><h2 id="mTitle"></h2><form id="mForm" novalidate></form></div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.js"></script>
+<script>
+/* ============================================================
+   Supabase 연결 설정 — 아래 두 줄만 본인 프로젝트 값으로 바꾸세요.
+   (Supabase 대시보드 > Project Settings > API 에서 복사)
+   주의: secret / service_role 키는 절대 넣지 마세요. publishable(anon) 키만 넣습니다.
+   ============================================================ */
+const SUPABASE_URL = "https://YOUR-PROJECT.supabase.co";
+const SUPABASE_KEY = "YOUR-PUBLISHABLE-KEY";
+const LOGIN_DOMAIN = "hanbat.ac.kr";   // 아이디에 @가 없으면 이 주소를 붙입니다 (jhha → jhha@hanbat.ac.kr)
+const BUCKET = "site";
+
+/* ---------- settings ---------- */
+// Photos and figures load from the current Wix media library when this page is hosted on the open web.
+// Inside a sandboxed preview they are blocked, and the designed placeholders show instead.
+const REMOTE_IMAGES = true;
+const wix = (id,w,h) => w ? `https://static.wixstatic.com/media/${id}/v1/fill/w_${w},h_${h},al_c,q_85/${id}` : `https://static.wixstatic.com/media/${id}`;
+
+/* ---------- data ---------- */
+const PUBS = [
+ // 2026
+ {y:2026,s:"In press",t:"Spatially Configurable Conformal Sensor Integration on an Ultra-Fine Metallic Needle for Minimally Invasive Deep-Tissue Oxygen Monitoring",a:"",j:"Advanced Materials Technologies",v:"accepted"},
+ {y:2026,t:"A Direction-Aware Piezo-Transmittance Strain Sensor via Engineered Alignment of Carbon Nanotubes (CNTs)",a:"B. Kang†, K. Kim†, J. Gu†, J. Ahn, Y. Jeong, J.-H. Ha, S. Jeon, S. H. Hwang, B.-H. Kang, J. Ahn, J.-A. Choi, M. Kim, Y. Jung, J.-H. Jeong*, J. G. Ok*, I. Park*",j:"Advanced Materials Technologies",v:"11, e71130",l:"https://advanced.onlinelibrary.wiley.com/doi/full/10.1002/admt.71130"},
+ {y:2026,t:"Interfacial Effects of Mo-Based Alloy Electrodes on Channel Shortening and Mobility Extraction in Oxide Thin-Film Transistors",a:"S.-J. Kim†, H.-I. Yeom†, T. K. Nam, J. Kim, J.-H. Ha, S.-H. K. Park, J. B. Ko*",j:"Surfaces and Interfaces",v:"98, 110429",l:"https://www.sciencedirect.com/science/article/abs/pii/S2468023026020067"},
+ {y:2026,f:1,t:"Ultrasoft Core–Shell Inorganic Nanoyarns for Energy and Sensing Applications",a:"D. Kim†, S. P. Sasikala†, J.-H. Ha†, O.-S. Kwon, J. Choi, Y. Jeong, H. Jang, J.-H. Jeong, Z.-J. Zhao, I. Park*, S. Kim*, J. Ahn*",j:"Advanced Fiber Materials",v:"",l:"https://link.springer.com/article/10.1007/s42765-026-00774-3"},
+ {y:2026,t:"Thin-Film MoS2 Phototransistor-Integrated Piezo-Transmittance Sensor for Wearable Electronics",a:"J. Gu, I. Lee, S.-Y. Ji, J. Ahn, J. Choi, Y. Jeong, J.-H. Ha, W. S. Chang*, B.-S. Bae*, I. Park*",j:"Advanced Materials Technologies",v:"11(16), e01979",l:"https://advanced.onlinelibrary.wiley.com/doi/full/10.1002/admt.202501979"},
+ {y:2026,c:"Front cover",t:"Unclonable Three-Level Holograms for Two-Factor Visual Authentication via One-Step Cascade-Nanostructure Imprinting",a:"J. Yang, M. Choi, J.-H. Ha, J. Ahn, S. H. Hwang, S. Jeon, D. Kim, J. Jeong, M. Kim, H. Lim, B.-H. Kang, J.-A. Choi, B. Kang, H. Kim*, J. Ahn*, J.-H. Jeong*",j:"Nano Letters",v:"26(30), 9836–9846"},
+ {y:2026,t:"Smarter Sensors Through Machine Learning: Historical Insights and Emerging Trends across Sensor Technologies",a:"K. Lee, O. Gul, Y. Kwon, J. Jeong, S. Cho, J. Ahn, J. Yu, C. Kim, D. Lee, H. Han, B. Lee, J. Choi, J.-H. Ha, Y. Jeong, K. Kang, A. Javey, J. Ahn*, I. Park*",j:"Advanced Functional Materials",v:"36(24), e19859"},
+ {y:2026,t:"Versatile water-floated nanostructures for three-dimensional nanotransfer printing",a:"B.-H. Kang, J.-H. Ha, Y. Kwon, S. Jeon, D. Lee, B. Kang, S. H. Hwang, J. Ahn*, J.-H. Jeong*, I. Park*",j:"Nature Communications",v:"17, 4588"},
+ {y:2026,f:1,c:"Cover",t:"Wireless, Battery-Free, Optoelectronic, Multi-Modal Sensor Integrated with Colorimetric Dressing for Diabetic Ulcer Management",a:"S. Cho†, J.-H. Ha†, J. Moon, J. Ahn, S. H. Hwang, S. Jeon, Y. Jeong, et al., J.-H. Jeong*, W. Gao*, I. Park*",j:"Advanced Functional Materials",v:"2532167"},
+ // 2025
+ {y:2025,f:1,t:"Bee Stinger-Like Wearable Electrospun Web Microneedles for Sustained CNS Drug Delivery",a:"J.-H. Ha, Y.-W. Lee, S. H. Hwang, D. Kim, B.-H. Kang, Y. J. Song, J. Won, M. Moon, Y. Yoon, S. A. Park, S. Jeon*, W. Kang*, J.-H. Jeong*",j:"Advanced Healthcare Materials",v:"14(28), 2501371"},
+ {y:2025,f:1,t:"Antibody-Integrated Solid-to-Gel Microfilm for Protection Against Botulinum Neurotoxin Type A",a:"J.-H. Ha, S. Jeon, Y.-W. Lee, S. H. Hwang, B.-H. Kang, Y. J. Song, J.-S. Lim, H. Kim, Y. Yoon, J.-H. Jeong*",j:"Gels",v:"11, 777"},
+ {y:2025,f:1,c:"Back cover",t:"SERS Sensor Integrated in Stretchable and Antimicrobial Wrapper for Food Quality Monitoring and Preservation",a:"J.-H. Ha, J. Yang, D. Kim, W. Lee, C. Yun, S. H. Hwang, S. Jeon, J. Choi, H. Lim, M. Kim, D. Kim, S. A. Park, S. So*, J. Ahn*, J.-H. Jeong*",j:"Small",v:"21, 2501808"},
+ {y:2025,t:"Wireless, battery-free multi-axial sensor for augmented reality-assisted monitoring at skin interfaces",a:"H. Han, H. Kim, S. Cho, D. Lee, J. Moon, C. Kim, J.-H. Ha, Y. Jung, Y. S. Oh, J. Choi, I. Park*",j:"npj Flexible Electronics",v:"9, 102"},
+ {y:2025,c:"Inside back cover",t:"Skin-Conformal Motion Monitoring Film for Deep Learning-Based Immersive Extended Reality",a:"J. Ahn, T. Kim, J.-H. Ha, D. Lee, O. Gul, S. Cho, H. Kim, M. Kang, J. Choi, J. Ahn*, I. Park*",j:"Advanced Functional Materials",v:"35, 2502568"},
+ {y:2025,t:"Fabrication of porous Au nanowires on a mirror featuring ultrahigh-density nanogaps via plasma-assisted nanotransfer printing for enhanced SERS",a:"H. An, Z.-J. Zhao, M. Kim, S. H. Shin, J.-H. Ha, J.-H. Jeong, J.-H. Choi, D. G. Choi, E.-J. Gwak, B.-K. Ju, J.-Y. Jung*",j:"Applied Surface Science Advances",v:"27, 100780"},
+ {y:2025,t:"Thermoforming 2D films into 3D electronics for high-performance, customizable tactile sensing",a:"J. Choi, C. Han, D. Lee, H. Kim, G. Lee, J.-H. Ha, Y. Jeong, J. Ahn, H. Park, H. Han, S. Cho, I. Park*",j:"Science Advances",v:"11, eadv0057"},
+ {y:2025,t:"Room-temperature rapid oxygen monitoring system in high humidity hydrogen gas environment towards water electrolysis application",a:"Y. Kwon, K. Lee, M. Kang, C. Kim, J.-H. Ha, H. Han, S. Yang, D. Yang, J. H. Seo, I. Park*",j:"Sensors and Actuators B: Chemical",v:"422, 136693"},
+ // 2024
+ {y:2024,f:1,c:"Inside front cover",t:"Micro-/Nanohierarchical Structures Physically Engineered on Surfaces: Analysis and Perspective",a:"J. Ahn†, H. Han†, J.-H. Ha†, Y. Jeong, Y. Jung, J. Choi, S. Cho, S. Jeon, J.-H. Jeong*, I. Park*",j:"Advanced Materials",v:"36, 2300871"},
+ {y:2024,f:1,c:"Back cover",t:"Wireless, Battery-free, Optoelectronic Diagnostic Sensor Integrated Colorimetric Dressing for Advanced Wound Care",a:"S. Cho†, J.-H. Ha†, J. Ahn, H. Han, Y. Jeong, S. Jeon, S. Hwang, J. Choi, Y. S. Oh, D. Kim, S. A. Park, D. Lee, J. Ahn, B. Kang, B.-H. Kang, J.-H. Jeong*, I. Park*",j:"Advanced Functional Materials",v:"2316196"},
+ {y:2024,f:1,t:"Nanotransfer Printing of Functional Nanomaterials on Electrospun Fibers for Wearable Healthcare Applications",a:"J.-H. Ha, J. Ko, J. Ahn, Y. Jeong, J. Ahn, S. Hwang, S. Jeon, D. Kim, J. Gu, J. Choi, H. Han, C. Han, B. Kang, B.-H. Kang, S. Cho, Y. J. Kwon, C. Kim, S. A. Park, J.-H. Jeong*, I. Park*",j:"Advanced Functional Materials",v:"2401404"},
+ {y:2024,f:1,t:"Nanotransfer Printing for Synthesis of Vertically Aligned Carbon Nanotubes with Enhanced Atomic Penetration",a:"J.-H. Ha†, I. Yang†, J. Ahn†, S. Kang, Z.-J. Zhao, Y. Jeong, J. Cheong, H. Je, S. Hwang, S. Jeon, J.-H. Jeong*, S. Kim*, I. Park*",j:"Advanced Functional Materials",v:"2315028"},
+ {y:2024,c:"Back cover",t:"Intrinsically flexible all-inorganic thermoelectric yarns",a:"H. Jang†, J. Ahn†, Y. Jeong†, J.-H. Ha, J.-H. Jeong*, M.-W. Oh*, I. Park*, Y. S. Jung*",j:"Advanced Materials",v:"36, 2408320"},
+ {y:2024,t:"Kirigami Auxetic Structure-Based Piezo-transmittance Strain Sensor with Customizable Performance using Machine Learning",a:"J. Gu, Y. Jung, J. Ahn, J. Ahn, J. Choi, B. Kang, J. Jung, Y. Jeong, J.-H. Ha, T. Kim, Y. Jung, J. Park, J. Jung, S. Ryu*, I. Lee*, I. Park*",j:"Nano Energy",v:"130, 110124"},
+ {y:2024,t:"Metasurface-Embedded Contact Lenses for Holographic Light Projection",a:"J. Ko, G. Kim, I. Kim, S. H. Hwang, S. Jeon, J. Ahn, Y. Jeong, J.-H. Ha, H. Heo, J.-H. Jeong*, I. Park*, J. Rho*",j:"Advanced Science",v:"11, 2407045"},
+ {y:2024,c:"Front cover",t:"Battery-Free, Wireless Multi-Modal Sensor, and Actuator Array System for Pressure Injury Prevention",a:"H. Han, H. Park, S. Cho, S.-U. Lee, J. Choi, J.-H. Ha, J. Park, Y. Jung, H. Kim, J. Ahn, Y. J. Kwon, Y. S. Oh, M. Je, I. Park*",j:"Small",v:"20, 2405493"},
+ {y:2024,t:"Innovations in self-powered sensors utilizing light, thermal, and mechanical renewable energy",a:"J. Ahn†, S. Cho†, L. Wu, X. Li, D. Lee, J.-H. Ha, H. Han, K. Lee, B. Kang, Y. Kwon, S. H. Hwang, S. Jeon, B. Yu, J. Ahn*, J.-H. Jeong*, I. Park*",j:"Nano Energy",v:"129, 110045"},
+ {y:2024,t:"High-Energy-Density Fiber Supercapacitors based on Transition Metal Oxide Nanoribbon Yarns for Comprehensive Wearable Electronics",a:"J. Ahn†, S. P. Sasikala†, Y. Jeong†, J. G. Kim, J.-H. Ha, S. H. Hwang, J. Choi, B.-H. Kang, J. Ahn, J.-H. Jeong*, S. O. Kim*, I. Park*",j:"Advanced Fiber Materials",v:"1–15"},
+ {y:2024,t:"Nanoribbon Yarn with Versatile Inorganic Materials",a:"J. Ahn†, Y. Jeong†, M. Kang†, J. Ahn, S. P. Sasikala, I. Yang, J.-H. Ha, S. H. Hwang, S. Jeon, J. Gu, J. Choi, B.-H. Kang, S. O. Kim, S. Kim, J. Choi, J.-H. Jeong*, I. Park*",j:"Small",v:"20, 2311736"},
+ {y:2024,t:"Highly Sensitive Soft Pressure Sensors for Wearable Applications Based on Composite Films with Curved 3D Carbon Nanotube Structures",a:"Y. Jung, J. Gu, J. Yeo, W. Lee, H. Han, J. Choi, J.-H. Ha, J. Ahn, H. Cho, S. Ryu, I. Park*",j:"Small",v:"20, 2303981"},
+ // 2023
+ {y:2023,f:1,c:"Back cover",t:"A wearable colorimetric sweat pH sensor-based smart textile for health state diagnosis",a:"J.-H. Ha, Y. Jeong, J. Ahn, S. Hwang, S. Jeon, D. Kim, J. Ko, B. Kang, Y. Jung, J. Choi, H. Han, J. Gu, S. Cho, H. Kim, M. Bok, S. A. Park, J.-H. Jeong*, I. Park*",j:"Materials Horizons",v:"10(10), 4163"},
+ {y:2023,f:1,c:"Back cover",t:"Multifunctional Micro/Nanofiber Based-Dressing Patch with Healing, Protection, and Monitoring Capabilities for Advanced Wound Care",a:"J.-H. Ha, J. Y. Kim, D. Kim, J. Ahn, Y. Jeong, J. Ko, S. Hwang, S. Jeon, Y. Jung, J. Gu, H. Han, J. Choi, G. Lee, M. Bok, S. A. Park, Y. S. Cho, J.-H. Jeong, I. Park",j:"Advanced Materials Technologies",v:"8, 2201765"},
+ {y:2023,c:"Back cover",t:"Recent Advances in Sensor–Actuator Hybrid Soft Systems: Core Advantages, Intelligent Applications, and Future Perspectives",a:"C. Han, Y. Jeong, J. Ahn, T. Kim, J. Choi, J.-H. Ha, H. Kim, S. H. Hwang, S. Jeon, J. Ahn, J. T. Hong, J. J. Kim, J.-H. Jeong*, I. Park*",j:"Advanced Science",v:"10, 2302775"},
+ {y:2023,t:"Nanoscale three-dimensional fabrication based on mechanically guided assembly",a:"J. Ahn, J.-H. Ha, Y. Jeong, Y. Jung, J. Choi, J. Gu, S. H. Hwang, M. Kang, J. Ko, S. Cho, H. Han, K. Kang, J. Park, S. Jeon, J.-H. Jeong, I. Park",j:"Nature Communications",v:"14(1), 833"},
+ {y:2023,t:"Spike-based Self-Calibration for Enhanced Accuracy in Self-powered Pressure Sensing",a:"C. Han, J. Choi, J. Ahn, H. Kim, J.-H. Ha, H. Han, S. Cho, Y. Jeong, J. Gu, I. Park*",j:"Advanced Materials Technologies",v:"8, 2301199"},
+ {y:2023,c:"Back cover",t:"A Mobile Two-Dimensional Ultrasound Focusing System for Personalized Healthcare Applications through a Dodecagonal Quasicrystal Patterned Planar Lens",a:"Y. Jeong, H. Kang, M. Bok, S. H. Hwang, S. Jeon, J. Ahn, J.-H. Ha, J. Ko, J. W. Park, W. Choi, I. Park, N. Park, J.-H. Jeong*",j:"Advanced Materials Technologies",v:"8, 2202173"},
+ {y:2023,c:"Back cover",t:"Biomimetic, Programmable, and Part-by-Part Maneuverable Single-Body Shape-Morphing Film",a:"Y. Jeong, J. Ahn, J.-H. Ha, J. Ko, S.-H. Hwang, S. Jeon, M. Bok, J.-H. Jeong*, I. Park*",j:"Advanced Intelligent Systems",v:"5(3), 2200293"},
+ {y:2023,t:"Nanotransfer-on-Things: From Rigid to Stretchable Nanophotonic Devices",a:"J. Ahn, J. Gu, Y. Jeong, J.-H. Ha, J. Ko, B. Kang, S. H. Hwang, J. Park, S. Jeon, H. Kim, J.-H. Jeong*, I. Park*",j:"ACS Nano",v:"5935"},
+ {y:2023,t:"Battery-Free, Wireless, Ionic Liquid Sensor Arrays to Monitor Pressure and Temperature of Patients in Bed and Wheelchair",a:"H. Han, Y. S. Oh, S. Cho, H. Park, S.-U. Lee, K. Ko, J.-M. Park, J. Choi, J.-H. Ha, C. Han, Z. Zhao, Z. Liu, Z. Xie, J.-S. Lee, W. G. Min, B.-J. Lee, J. Koo, D. Y. Choi, M. Je, J.-Y. Sun, I. Park*",j:"Small",v:"19, 2205048"},
+ // 2022
+ {y:2022,c:"Back cover",t:"All-Recyclable Triboelectric Nanogenerator for Sustainable Ocean Monitoring Systems",a:"J. Ahn, J.-S. Kim, Y. Jeong, S. Hwang, H. Yoo, Y. Jeong, J. Gu, M. Mahato, J. Ko, S. Jeon, J.-H. Ha, H.-S. Seo, J. Choi, M. Kang, C. Han, Y. Cho, C. H. Lee, J.-H. Jeong*, I.-K. Oh*, I. Park*",j:"Advanced Energy Materials",v:"12(30), 2201341"},
+ {y:2022,c:"Back cover",t:"Spherical Micro/Nano Hierarchical Structures for Energy and Water Harvesting Devices",a:"Y. Jung, J. Ahn, J.-S. Kim, J.-H. Ha, J. Shim, H. Cho, Y. S. Oh, Y.-J. Yoon, Y. Nam, I.-K. Oh, J.-H. Jeong*, I. Park*",j:"Small Methods",v:"6(7), 2200248"},
+ // 2021
+ {y:2021,f:1,t:"Flexible Carbon Nanotube/Polydimethylsiloxane Composite for the Deicing of Airplane Wings",a:"J.-H. Ha, S.-K. Hong, D.-H. Kim, S.-H. Park",j:"Journal of Nanoscience and Nanotechnology",v:"21(3)"},
+ {y:2021,f:1,t:"Flexible Thin Carbon Nanotube Web Film for Curved Heating Elements under High Temperature Conditions",a:"J.-H. Ha, H. Song, H. Kim, D. Kim, Y. Jeong, S.-H. Park",j:"Journal of Nanoscience and Nanotechnology",v:"21(3)"},
+ {y:2021,t:"Self-powered strain sensor based on the piezo-transmittance of a mechanical metamaterial",a:"J. Gu, J. Ahn, J. Jung, S. Cho, J. Choi, Y. Jeong, J. Park, S. Hwang, I. Cho, J. Ko, J.-H. Ha, Z.-J. Zhao, S. Jeon, S. Ryu, J.-H. Jeong*, I. Park*",j:"Nano Energy",v:"89, 106447"},
+ {y:2021,t:"Biocompatible nanotransfer printing based on water bridge formation in hyaluronic acid and its application to smart contact lenses",a:"J. Ko, H. J. Kang, J. Ahn, Z.-J. Zhao, Y. Jeong, S. H. Hwang, M. Bok, S. Jeon, J. Gu, J.-H. Ha, J. Rho, J.-H. Jeong*, I. Park*",j:"ACS Applied Materials & Interfaces",v:"13(29), 35069–35078"},
+ // 2020
+ {y:2020,t:"Versatile chemical sensors using oligosaccharides on cleanable PDMS/graphene hybrids for monitoring environmentally hazardous substances",a:"J. Bae*, Y. Hwang, J.-H. Ha, O. S. Kwon, A. Jang, H. J. Kim, J. An, C.-S. Lee*, S.-H. Park*",j:"Applied Surface Science",v:"507, 145139"},
+ {y:2020,t:"Flexible Chemical Sensors Using Signal Generation from Cyclodextrin-Analyte Interactions on Polymer Composites",a:"J. Bae*, D.-S. Shin, J.-H. Ha, Y. Hwang, C.-S. Lee, H. J. Kim, A. Jang, S.-H. Park*",j:"BioChip Journal",v:"14(3), 251–257"},
+ {y:2020,t:"Strain-sensing properties of multi-walled carbon nanotube/polydimethylsiloxane composites with different aspect ratio and filler contents",a:"O. N. Hur, J.-H. Ha, S. H. Park*",j:"Materials",v:"13(11)"},
+ // 2019
+ {y:2019,f:1,t:"Effect of dispersion by three-roll milling on electrical properties and filler length of carbon nanotube composites",a:"J.-H. Ha, S. E. Lee, S.-H. Park*",j:"Materials",v:"12(23)"},
+ {y:2019,f:1,t:"Development of multi-functional graphene polymer composites having electromagnetic interference shielding and de-icing properties",a:"J.-H. Ha, S. K. Hong, J. K. Ryu, J. Bae, S.-H. Park*",j:"Polymers",v:"11(12)"},
+ {y:2019,t:"Improved Electromagnetic Interference Shielding Properties Through the Use of Segregate Carbon Nanotube Networks",a:"S. Park*, J.-H. Ha",j:"Materials",v:"12, 1395"},
+ {y:2019,t:"Modeling the electrical resistivity of polymer composites with segregated structures",a:"S. H. Park*, J. Hwang, G.-S. Park, J.-H. Ha, M. Zhang, D. Kim, D.-J. Yun, S. Lee, S. H. Lee*",j:"Nature Communications",v:"10(1), 1–11"},
+ // 2018
+ {y:2018,f:1,t:"Electrical Properties of the Carbon-Nanotube Composites Film Under Extreme Temperature Condition",a:"J.-H. Ha, K. Chu, S.-H. Park*",j:"Journal of Nanoscience and Nanotechnology",v:"19(3), 1682–1685"},
+ {y:2018,t:"Conducting Super-Hydrophobic Thin Film for Electric Heating Applications",a:"M.-H. Park, J.-H. Ha, M. La, Y. Ko, D. Kim, S.-H. Park*",j:"Journal of Nanoscience and Nanotechnology",v:"19(3), 1506–1510"},
+ {y:2018,t:"Enhanced adhesion properties of conductive super-hydrophobic surfaces by using zirco-aluminate coupling agent",a:"M. H. Park, J.-H. Ha, H. Song, J. Bae, S.-H. Park*",j:"Journal of Industrial and Engineering Chemistry",v:"68, 387–392"},
+ {y:2018,t:"Study on sensing signal profiles for determining the process window of flexible sensors based on surface-treated PDMS/CNT composite patches",a:"J. Bae, Y. Hwang, S. J. Park, J.-H. Ha, H. J. Kim, A. Jang, J. An, C. S. Lee, S.-H. Park*",j:"Polymers",v:"10(9)"}
+];
+const SELECTED = ["Versatile water-floated nanostructures","Diabetic Ulcer Management","Ultrasoft Core–Shell","Bee Stinger-Like"];
+
+const NEWS = [
+ {d:"2026.11.03",t:"국립한밭대 학생팀, AI 섬유 공정 설계 플랫폼으로 ‘2026 섬유연구자×소재데이터 아이디어 경진대회’ 창의상",k:"Award",i:"1fcfb8_df9a4970ac1a456c847d89116dc7a01e~mv2.png"},
+ {d:"2026.10.27",t:"국립한밭대 하지환 교수팀, 에너지·센서 기능 갖춘 초유연 복합 섬유 개발",k:"Research",i:"1fcfb8_168ca603e37c488087b77f0207efab32~mv2.png"},
+ {d:"2026.10.07",t:"기계공학과 정진호 학부생, ‘2026 마이크로나노시스템학회’ 우수논문상 수상",k:"Award",i:"1fcfb8_6a23a61940d14c7b8a7fef91fc4d13ec~mv2.png"},
+ {d:"2026.09.22",t:"한밭대 이우진 학부연구생, 한국센서학회 우수발표 논문상 수상",k:"Award",i:"1fcfb8_ab78006a56a144cb9fb1bf0ddc5d16bc~mv2.png"},
+ {d:"2026.08.13",t:"한밭대 정진호 학부생 ‘제3회 AI 센서·트랜스듀서 국제학회’ 우수 포스터 발표상 수상",k:"Award",i:"1fcfb8_752dc60a023d4bbb8842428e78436ae1~mv2.png"}
+];
+const GALLERY = [
+ {d:"2026.10.29 – 30",t:"The Korean Fiber Society Fall Conference & Fiber Researchers Contest",i:"1fcfb8_3352bf1470904315825a6e9bde2065f3~mv2.jpg"},
+ {d:"2026.10.23",t:"HBNU–KIMM joint seminar",i:"1fcfb8_488d9a1bdf8e4e9799b139a79761ad25~mv2.jpg"},
+ {d:"2026.09.30 – 10.02",t:"2026 MNS Fall Conference. Congratulations, Jinho! (Best Research Paper Award)",i:"1fcfb8_88822ba680b14485b0104c2955aaa38c~mv2.jpg"},
+ {d:"2026.09.16 – 18",t:"2026 Fall Conference of KSS. Congratulations, Woojin! (Best Research Paper Award)",i:"1fcfb8_4bb885300c6e4a6fbb57ac7fa0c7d95a~mv2.jpg"},
+ {d:"2026.09.11",t:"A little late, but happy birthday, Yegyu!",i:"1fcfb8_92a701a9774445028c0b0a327ecfa577~mv2.jpg"},
+ {d:"2026.08.12",t:"Seminar with Prof. Inkyu Park (KAIST)",i:"1fcfb8_a2fa3a2d4bdf4884983e5418dea6aebc~mv2.jpg"}
+];
+const RESEARCHERS = [
+ {n:"Yegyu Lee",ko:"이예규",r:"M.S. Student",s:"B.S., HBNU Mechanical Engineering",i:"1fcfb8_dc5208ea9e884c3d910aed82328c4181~mv2.jpg"},
+ {n:"Minkyu Lee",ko:"이민규",r:"Undergraduate Researcher",s:"Mechanical Engineering",i:"1fcfb8_fd3c77d0eb754c52abfd8367a5324781~mv2.jpg"},
+ {n:"Jinho Jeong",ko:"정진호",r:"Undergraduate Researcher",s:"Mechanical Engineering",i:"1fcfb8_e04fae11ac3b463796bbbac974a67e07~mv2.jpg"},
+ {n:"Cheolhee Lee",ko:"이철희",r:"Undergraduate Researcher",s:"Mechanical Engineering",i:"1fcfb8_5f169e5afa0241e3b0a42b2bfc216fe6~mv2.jpg"},
+ {n:"Woojin Lee",ko:"이우진",r:"Undergraduate Researcher",s:"Mechanical Engineering",i:"1fcfb8_be5cef7f711549d08a73c327ee703f18~mv2.png"},
+ {n:"Yerim Jung",ko:"정예림",r:"Undergraduate Researcher",s:"Materials Science and Engineering",i:"1fcfb8_1f5365c7321b4a73afd639e61e813321~mv2.jpg"},
+ {open:1}
+];
+const INTERNS = [
+ {n:"Woovin Shin",r:"Intern",s:"Mechanical Engineering",i:"1fcfb8_cda3db3467b641a7b07fc634d173a989~mv2.jpg"},
+ {n:"Hunjo Kim",ko:"김훈조",r:"Intern",s:"Mechanical Engineering",i:"1fcfb8_bf93233f41c841b1b25b0e3c84301938~mv2.jpg"},
+ {n:"Sangkyo Geum",r:"Intern",s:"Mechanical Engineering",i:"1fcfb8_9f66bee0678b4e199f3e8a8f4d1121c3~mv2.jpeg"},
+ {n:"Siyoung Oh",ko:"오시영",r:"Intern",s:"Mechanical Engineering",i:"1fcfb8_9da2db062f624840bf3c63a4a1a2381a~mv2.jpg"},
+ {n:"Sung-wook Cho",ko:"조성욱",r:"Intern",s:"Mechanical Engineering",i:"1fcfb8_76c4482558e94214bdf2e763e878b9cb~mv2.jpg"},
+ {open:1}
+];
+const ALUMNI = [
+ {n:"Seungha Kim",r:"황성공업",s:"B.S., HBNU Mechanical Engineering",i:"1fcfb8_4a1ef67a88b04857b703ebc407c0cf93~mv2.jpg"}
+];
+const PROJ_ON = [
+ ["Breakthrough technology for diagnostic and therapeutic clothing based on electrospun nanofiber composites and functionalization","National Research Foundation of Korea · Sejong Science Fellowship (MSIT)","2025.03 – 2030.02","Principal investigator"],
+ ["Fabrication of ultra-high-resolution QLED electrodes via electrostatic cluster patterning with quantum-dot photoreduction ink","National Research Foundation of Korea · Glocal R&D Support (MOE)","2025.09 – 2028.08","Co-principal investigator"],
+ ["Global Production Manufacturing Technology Research Institute","National Research Foundation of Korea · GloCal Lab (MOE)","2026.09 – 2035.08","Core task co-leader"],
+ ["Highly conformable, multifunctional wearable microneedles based on electrospun webs","RISE Project Group · Joint R&D with government-funded research institute","2026.03 – 2027.02","Principal investigator"],
+ ["R&D planning for a field-deployable platform for rapid, non-contact, non-invasive drug screening","Science Security Promotion Center · Future Security Challenge Technology R&D","2026.09 – 2027.02","Co-principal investigator"]
+];
+const PROJ_DONE = [
+ ["Electrostatic-force-based liquid metal printing on electrospun fibers for wearable biosignal sensors","Hanbat National University","2025.03 – 2026.02","Principal investigator"],
+ ["Food quality monitoring and preservation using smart antibacterial packaging with an integrated nanostructured SERS sensor","RISE Project Group · Joint R&D with government-funded research institute","2025.08 – 2026.01","Principal investigator"],
+ ["Multidisciplinary development of metal oxide nanosheet composites and fiber-based electronic device platforms","RISE Project Group · Small-group research","2025.07 – 2026.01","Participating researcher"]
+];
+
+/* ---------- helpers ---------- */
+const $ = (s,r=document)=>r.querySelector(s), $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const esc = s => String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const me = s => esc(s).replace(/J\.-H\. Ha(†?)/g,"<b>J.-H. Ha$1</b>");
+const safeUrl = u => /^https?:\/\//i.test(String(u||"")) ? String(u) : "";
+const slug = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+const figKey = p => p.y+"-"+p.t.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean).slice(0,4).join("-");
+function attachImg(box,src,alt){
+  if(!src) return;
+  const im=new Image(); im.alt=alt||"";
+  im.onload=()=>box.classList.add("ok"); im.onerror=()=>im.remove();
+  im.src=src; box.appendChild(im);
+}
+// An uploaded image (asset id) wins; otherwise the legacy Wix image; otherwise the placeholder.
+const okId = x => typeof x==="string" && /^[A-Za-z0-9_\-./]+$/.test(x) && !x.includes("..");
+const blobUrl = id => SUPABASE_URL+"/storage/v1/object/public/"+BUCKET+"/"+id;
+const imgOf = (it,w,h,key="img") => okId(it[key]) ? blobUrl(it[key]) : (REMOTE_IMAGES&&it.wix ? wix(it.wix,w,h) : "");
+
+/* ---------- content model ----------
+   BASE is the content built into this page. Edits made in admin mode are stored in the artifact's
+   database as documents with the same id (override), new ids (additions) or {deleted:true}. */
+const BASE = {
+  pubs: PUBS.map((p,i)=>({...p,id:figKey(p),n:PUBS.length-i})),
+  people: [{id:"pi",g:"pi",wix:"1fcfb8_c067e126997941e2adc19af41d6e4713~mv2.png"},
+    ...[["researcher",RESEARCHERS],["intern",INTERNS],["alumni",ALUMNI]].flatMap(([g,arr])=>arr.filter(m=>!m.open).map((m,i)=>({id:slug(m.n),g,o:(i+1)*10,n:m.n,ko:m.ko||"",r:m.r,s:m.s,wix:m.i})))],
+  news: NEWS.map(x=>({id:"n"+x.d.replace(/\D/g,""),d:x.d,t:x.t,k:x.k,wix:x.i})),
+  patents: [],
+  research: [
+    {id:"intro",t:"Materials, manufacturing, and devices, designed together.",b:"NAMED Lab develops micro/nanoscale functional materials and manufacturing methods for wearable healthcare. Electrospinning sits at the center, combined with nanotransfer printing, laser processing, and heterogeneous material integration to build skin-conformal platforms."},
+    {id:"t1",t:"Functional Micro/Nanofibers",wix:"1fcfb8_130855ca1bb14776a80c92bb9abc86f5~mv2.png",b:"Composite nanofibers loaded with conductive, ceramic, photoactive, or bioactive fillers\nStructural control of diameter, alignment, porosity, and multilayer architecture\nStimuli-responsive fibers that react to temperature, light, moisture, and electricity\nBiocompatible, biodegradable fibers (PVA, PCL, PLGA) for drug delivery and wound care"},
+    {id:"t2",t:"Micro/Nano Manufacturing & Integration",wix:"1fcfb8_716f65bb20af4c0e92b72ac4b2dccd5b~mv2.png",b:"Nanotransfer printing of metal and oxide nanostructures onto flexible and fibrous surfaces\nPlasmonic nanostructures for label-free SERS biosensing\nLaser patterning and surface modification\nGallium-based liquid metal circuits and stretchable interconnects\nSensors, interconnects, energy, and therapeutic modules combined in a single system"},
+    {id:"t3",t:"Wearable Diagnostics & Therapeutics",wix:"1fcfb8_29cb2b3adcbc471397ac1a10effd85d6~mv2.png",b:"Fiber-based biosensing for on-body diagnosis and continuous monitoring\nElectrospun-web microneedles for localized, sustained drug delivery\nSmart dressings that heal, protect, and report wound status\nHealthcare wearables and diagnostic garments"},
+    {id:"phil",t:"Wearable healthcare advances fastest when materials, manufacturing, and devices are developed as one.",b:"We pursue process fundamentals, scalable manufacturing, and proof-of-concept devices in collaboration with universities, government institutes, and industry."}
+  ],
+  gallery: GALLERY.map(x=>({id:"g"+x.d.replace(/\D/g,""),d:x.d,t:x.t,wix:x.i}))
+};
+const OVER = {pubs:{},patents:{},research:{},people:{},news:{},gallery:{}};
+const gIds = g => { const a=(Array.isArray(g.imgs)?g.imgs:[]).filter(okId); return a.length?a:(okId(g.img)?[g.img]:[]); };
+const gSrcs = g => { const a=gIds(g).map(blobUrl); return a.length?a:(REMOTE_IMAGES&&g.wix?[wix(g.wix)]:[]); };
+let DBH=null, ASSETS=null, ADMIN=false, ED=null;
+function eff(kind){
+  const o=OVER[kind], out=[], seen=new Set();
+  for(const b of BASE[kind]){ seen.add(b.id); const d=o[b.id]; if(d&&d.deleted) continue; out.push(d?{...b,...d,id:b.id}:b); }
+  for(const id in o) if(!seen.has(id)&&!o[id].deleted) out.push({...o[id],id});
+  return out;
+}
+
+/* ---------- pagination ---------- */
+const PG={pubs:1,patents:1,news:1,gallery:1}, PSIZE={pubs:10,patents:10,news:9,gallery:9};
+const PBAR={pubs:"pubPager",patents:"patPager",news:"newsPager",gallery:"galPager"}, PTOP={pubs:"pubList",patents:"patList",news:"allNews",gallery:"galGrid"};
+function paged(kind,list){
+  const size=PSIZE[kind], pages=Math.max(1,Math.ceil(list.length/size));
+  const cur=PG[kind]=Math.min(Math.max(1,PG[kind]),pages); let h="";
+  if(pages>1){
+    h=`<button data-pg="${cur-1}" data-kind="${kind}"${cur===1?" disabled":""} aria-label="Previous page">‹</button>`;
+    let prev=0;
+    for(let n=1;n<=pages;n++){ if(n!==1&&n!==pages&&Math.abs(n-cur)>2) continue;
+      if(n-prev>1) h+=`<span class="gap">…</span>`;
+      h+=`<button data-pg="${n}" data-kind="${kind}"${n===cur?' aria-current="page"':""} aria-label="Page ${n}">${n}</button>`; prev=n; }
+    h+=`<button data-pg="${cur+1}" data-kind="${kind}"${cur===pages?" disabled":""} aria-label="Next page">›</button>`
+      +`<span class="goto"><label for="pg_${kind}">Go to page</label><input id="pg_${kind}" type="number" min="1" max="${pages}" inputmode="numeric" placeholder="${cur}"><span>/ ${pages}</span><button data-go="${kind}">Go</button></span>`;
+  }
+  const bar=$("#"+PBAR[kind]); bar.innerHTML=h; bar.hidden=!h;
+  return list.slice((cur-1)*size,cur*size);
+}
+function gotoPage(kind,n){
+  if(!Number.isFinite(n)) return;
+  PG[kind]=Math.round(n); ({pubs:renderPubs,patents:renderPatents,news:renderAll,gallery:renderAll})[kind]();
+  $("#"+PTOP[kind]).scrollIntoView({block:"start"});
+}
+document.addEventListener("click",e=>{
+  const b=e.target.closest&&e.target.closest(".pager button"); if(!b) return;
+  if(b.dataset.go) gotoPage(b.dataset.go,parseInt($("#pg_"+b.dataset.go).value,10)); else gotoPage(b.dataset.kind,Number(b.dataset.pg));
+});
+document.addEventListener("keydown",e=>{ if(e.key==="Enter"&&e.target.id&&e.target.id.startsWith("pg_")){ e.preventDefault(); gotoPage(e.target.id.slice(3),parseInt(e.target.value,10)); } });
+
+/* ---------- render ---------- */
+function pubRow(p,num){
+  const full=num!==undefined, link=safeUrl(p.l);
+  const tags=(p.c?`<span class="pill dark">${esc(p.c)}</span>`:"")+(p.s?`<span class="pill">${esc(p.s)}</span>`:"")+(link?`<a class="pill" href="${esc(link)}" target="_blank" rel="noopener">Read paper ›</a>`:"");
+  const fig=full&&(p.fig||ADMIN)?`<details class="figd" name="pubfig" data-fig="${esc(p.fig||"")}" data-title="${esc(p.t)}"><summary><span class="s-show">Show figure</span><span class="s-hide">Hide figure</span></summary><div class="figp"></div></details>`:"";
+  const edit=full?`<div><button class="adm ebtn" data-edit="pubs:${esc(p.id)}">편집</button></div>`:"";
+  return `<div class="rowi${full?" num":""}">${full?`<div class="no">${num}</div>`:""}<div class="j">${esc(p.j)}<small>${esc(p.y)}${p.v&&p.v!=="accepted"?" · "+esc(p.v):""}</small></div><div><div class="t">${esc(p.t)}</div>${p.a?`<div class="a">${me(p.a)}</div>`:""}${tags}${fig}${edit}</div></div>`;
+}
+let pf="all";
+function renderPubs(){
+  const all=eff("pubs").map(p=>({...p,y:Number(p.y)||0,n:Number(p.n)||0})).sort((a,b)=>(b.y-a.y)||(b.n-a.n));
+  const cat=all.filter(p=>pf==="all"||(pf==="first"&&(p.f||/J\.-H\. Ha†?\*/.test(p.a||"")))||(pf==="cover"&&p.c));
+  const nums=new Map(); [...cat].reverse().forEach((p,i)=>nums.set(p.id,i+1));   // numbered within the selected category, oldest = No. 1
+  const q=$("#q").value.trim().toLowerCase();
+  const list=cat.filter(p=>(!q||(p.t+" "+p.a+" "+p.j+" "+p.y).toLowerCase().includes(q)));
+  const page=paged("pubs",list), from=(PG.pubs-1)*PSIZE.pubs;
+  $("#pubCount").textContent=list.length?`Showing ${from+1}–${from+page.length} of ${list.length} papers${list.length<cat.length?` (${cat.length} in this category)`:""}`:"No papers match. Try a different search term or filter.";
+  let h="",yr=null;
+  for(const p of page){ if(p.y!==yr){ if(yr!==null) h+="</div>"; yr=p.y; h+=`<h2 class="yr">${yr}</h2><div class="rows">`; } h+=pubRow(p,nums.get(p.id)); }
+  $("#pubList").innerHTML=h+(yr!==null?"</div>":"");
+}
+function renderPatents(){
+  const all=eff("patents").sort((a,b)=>String(b.d).localeCompare(String(a.d)));
+  $("#patCount").textContent=all.length?`${all.length} patent${all.length>1?"s":""}`:"Patents will be listed here soon.";
+  let h="",yr=null;
+  paged("patents",all).forEach(p=>{
+    const i=all.indexOf(p), y=String(p.d||"").slice(0,4)||"—";
+    if(y!==yr){ if(yr!==null) h+="</div>"; yr=y; h+=`<h2 class="yr">${esc(y)}</h2><div class="rows">`; }
+    h+=`<div class="rowi num"><div class="no">${all.length-i}</div><div class="j">${esc(p.st||"")}<small>${esc(p.co||"")}${p.co&&p.d?" · ":""}${esc(p.d||"")}</small></div><div><div class="t">${esc(p.t)}</div>${p.a?`<div class="a">${me(p.a)}</div>`:""}${p.no?`<span class="pill">${esc(p.no)}</span>`:""}<div><button class="adm ebtn" data-edit="patents:${esc(p.id)}">편집</button></div></div></div>`;
+  });
+  $("#patList").innerHTML=h+(yr!==null?"</div>":"");
+}
+function newsCard(n,home){
+  return `<article class="card clk" data-view="news:${esc(n.id)}" tabindex="0" role="button" aria-label="${esc(n.t)}" style="background:${home?"#fff":"var(--bg-alt)"}"><div class="ph" data-src="${esc(imgOf(n,800,500))}"><span class="lbl"><small>${esc(n.k)}</small>${esc(n.d)}</span></div><div class="txt"><time>${esc(n.d)}${n.k?" · "+esc(n.k):""}</time><h3 lang="ko">${esc(n.t)}</h3>${home?"":`<button class="adm ebtn" data-edit="news:${esc(n.id)}">편집</button>`}</div></article>`;
+}
+function galCard(g){
+  const n=gIds(g).length, cover=n?blobUrl(gIds(g)[0]):imgOf(g,900,600);
+  return `<figure class="clk" data-view="gallery:${esc(g.id)}" tabindex="0" role="button" aria-label="${esc(g.t)}"><div class="ph" data-src="${esc(cover)}">${n>1?`<span class="cnt">${n} photos</span>`:""}<span class="lbl"><small>Gallery</small>${esc(g.d)}</span></div><figcaption><b>${esc(g.t)}</b><span>${esc(g.d)}</span><div><button class="adm ebtn" data-edit="gallery:${esc(g.id)}" style="margin-top:8px">편집</button></div></figcaption></figure>`;
+}
+const ART=["fiber","nano","wear"];
+function renderResearch(){
+  const R=eff("research"), g=id=>R.find(x=>x.id===id)||{};
+  $("#rIntroT").textContent=g("intro").t||""; $("#rIntroL").textContent=g("intro").b||"";
+  $("#rPhT").textContent=g("phil").t||""; $("#rPhL").textContent=g("phil").b||"";
+  $("#thrusts").innerHTML=["t1","t2","t3"].map((id,i)=>{ const x=g(id);
+    return `<article class="thrust${i%2?" flip":""}"><div><p class="no">THRUST 0${i+1}</p><h2 class="h-lg" style="margin-top:12px">${esc(x.t)}</h2><ul>${String(x.b||"").split(/\n+/).map(l=>l.trim()).filter(Boolean).map(l=>`<li>${esc(l)}</li>`).join("")}</ul><button class="adm ebtn" data-edit="research:${id}" style="margin-top:18px">글·그림 편집</button></div><div class="fig" data-src="${esc(imgOf(x))}"><canvas data-art="${ART[i]}"></canvas></div></article>`; }).join("");
+  $$("#thrusts .fig").forEach(b=>attachImg(b,b.dataset.src,"Research figure"));
+  drawAllArt();
+}
+const OPEN_CARD=`<div class="mem open"><div class="ph av"><span class="ini">Open position</span></div><b>This could be you</b><span><a href="#join">See how to join ›</a></span></div>`;
+function memCard(m){
+  const ini=String(m.n||"").split(/[ -]/).filter(Boolean).map(x=>x[0]).slice(0,2).join("").toUpperCase();
+  return `<div class="mem"><div class="ph av" data-src="${esc(imgOf(m,538,646))}"><span class="ini">${esc(ini)}</span></div><b>${esc(m.n)}${m.ko?`<span class="ko" style="display:inline" lang="ko">${esc(m.ko)}</span>`:""}</b><span class="role">${esc(m.r)}</span><span>${esc(m.s)}</span><button class="adm ebtn" data-edit="people:${esc(m.id)}" style="margin-top:8px">편집</button></div>`;
+}
+function projTable(rows){return `<thead><tr><th>Project</th><th>Funding</th><th>Period</th><th>Role</th></tr></thead><tbody>`+rows.map(r=>`<tr><td class="p">${esc(r[0])}</td><td>${esc(r[1])}</td><td class="d">${r[2]}</td><td>${r[3]}</td></tr>`).join("")+"</tbody>";}
+function renderAll(){
+  renderPubs(); renderPatents(); renderResearch();
+  const pubs=eff("pubs");
+  $("#selPubs").innerHTML=SELECTED.map(k=>pubs.find(p=>String(p.t).includes(k))).filter(Boolean).map(p=>pubRow(p)).join("");
+  const byDate=(a,b)=>String(b.d).localeCompare(String(a.d));
+  const news=eff("news").sort(byDate);
+  $("#homeNews").innerHTML=news.slice(0,3).map(n=>newsCard(n,true)).join("");
+  $("#allNews").innerHTML=paged("news",news).map(n=>newsCard(n)).join("");
+  $("#galGrid").innerHTML=paged("gallery",eff("gallery").sort(byDate)).map(galCard).join("");
+  const P=eff("people"), grp=g=>P.filter(m=>m.g===g).sort((a,b)=>(Number(a.o)||0)-(Number(b.o)||0)).map(memCard).join("");
+  $("#researchers").innerHTML=grp("researcher")+OPEN_CARD;
+  $("#interns").innerHTML=grp("intern")+OPEN_CARD;
+  $("#alumni").innerHTML=grp("alumni");
+  const pi=P.find(m=>m.id==="pi")||{}, box=$("#piPhoto");
+  box.classList.remove("ok"); $$("img",box).forEach(i=>i.remove()); attachImg(box,imgOf(pi,780,852),"Ji-Hwan Ha");
+  $$(".ph[data-src]").forEach(b=>attachImg(b,b.dataset.src));
+}
+$("#projOn").innerHTML=projTable(PROJ_ON); $("#projDone").innerHTML=projTable(PROJ_DONE);
+renderAll();
+$("#q").addEventListener("input",()=>{PG.pubs=1;renderPubs();});
+$$(".chip").forEach(c=>c.addEventListener("click",()=>{pf=c.dataset.f;PG.pubs=1;$$(".chip").forEach(x=>x.setAttribute("aria-pressed",x===c));renderPubs();}));
+$("#pubList").addEventListener("toggle",e=>{
+  const d=e.target; if(!d.matches||!d.matches(".figd")||!d.open||d.dataset.done) return; d.dataset.done=1;
+  const box=$(".figp",d), empty=()=>{box.innerHTML=`<div class="empty"><span>${ADMIN?"아직 그림이 없습니다. 아래 ‘편집’에서 그림을 올려 주세요.":"Figure to be added"}</span></div>`;};
+  if(!okId(d.dataset.fig)) return empty();
+  const im=new Image(); im.alt="Representative figure: "+d.dataset.title; im.onerror=empty;
+  im.onload=()=>{box.innerHTML="";box.appendChild(im);}; im.src=blobUrl(d.dataset.fig);
+},true);
+if(REMOTE_IMAGES){const lg=$("#logo");lg.onload=()=>lg.style.display="block";lg.onerror=()=>lg.remove();lg.src=wix("1fcfb8_7b594fe541f94c589e77547c68ec7d1a~mv2.png",182,146);}
+
+/* ---------- admin mode (owner and editors only) ---------- */
+const FORMS={
+  pubs:[["y","연도","number"],["t","논문 제목","textarea"],["a","저자 († 공동 1저자, * 교신저자)","textarea"],["j","저널","text"],["v","권·호·페이지","text"],["c","커버 선정 (예: Front cover)","text"],["s","상태 (예: In press)","text"],["l","논문 링크 (https://…)","text"],["f","1저자 / 교신저자 논문 (First/Corresponding)","checkbox"]],
+  people:[["g","구분","select",[["researcher","Researchers"],["intern","Interns"],["alumni","Alumni"]]],["n","이름 (영문)","text"],["ko","이름 (한글)","text"],["r","직위·과정 (Alumni는 현 소속)","text"],["s","소속·학력","text"],["o","표시 순서 (작을수록 앞)","number"]],
+  patents:[["t","발명의 명칭","textarea"],["a","발명자","textarea"],["st","상태","select",[["Registered","Registered (등록)"],["Filed","Filed (출원)"]]],["co","국가 (예: KR, US, PCT)","text"],["no","등록·출원 번호","text"],["d","등록·출원일 (YYYY.MM.DD)","text"]],
+  news:[["d","날짜 (YYYY.MM.DD)","text"],["k","분류 (Award, Research 등)","text"],["t","제목","textarea"],["body","본문 (클릭하면 보이는 글)","textarea"],["url","기사 링크 (https://…)","text"]],
+  research:[["t","제목·문구","textarea"],["b","본문 (Thrust는 한 줄에 한 항목)","textarea"]],
+  gallery:[["d","날짜 (YYYY.MM.DD)","text"],["t","설명","textarea"]],
+  pi:[]
+};
+const REQ={research:["t"],patents:["t","d"],pubs:["y","t","j"],people:["n"],news:["d","t"],gallery:["d","t"],pi:[]};
+const IMGKEY={research:"img",pubs:"fig",people:"img",news:"img",gallery:"img",pi:"img"};
+const KNAME={research:"Research 내용",patents:"특허",pubs:"논문",people:"구성원",news:"뉴스",gallery:"갤러리 사진",pi:"PI 사진"};
+const IMGNAME={research:"대표 그림",pubs:"대표 그림",people:"프로필 사진",news:"대표 이미지",gallery:"사진",pi:"프로필 사진"};
+const today=()=>{const d=new Date();return d.getFullYear()+"."+String(d.getMonth()+1).padStart(2,"0")+"."+String(d.getDate()).padStart(2,"0");};
+function openEditor(kind,id,g){
+  if(!DBH) return;
+  const coll=kind==="pi"?"people":kind; if(kind==="pi") id="pi";
+  const cur=id?eff(coll).find(x=>x.id===id):null; if(id&&!cur) return;
+  const it=cur||{pubs:{y:new Date().getFullYear()},patents:{st:"Registered",co:"KR",d:today()},people:{g:g||"researcher"},news:{d:today(),k:"News"},gallery:{d:today()}}[kind]||{};
+  ED={kind,coll,id:id||null,it};
+  $("#mTitle").textContent=KNAME[kind]+(kind==="pi"?" 변경":id?" 편집":" 추가");
+  let h="";
+  for(const [k,label,type,opts] of FORMS[kind]){
+    const v=it[k]??"";
+    if(type==="checkbox") h+=`<label class="fl chk"><input type="checkbox" id="f_${k}"${v?" checked":""}> ${label}</label>`;
+    else if(type==="select") h+=`<label class="fl" for="f_${k}">${label}</label><select id="f_${k}">${opts.map(o=>`<option value="${o[0]}"${o[0]===v?" selected":""}>${o[1]}</option>`).join("")}</select>`;
+    else if(type==="textarea") h+=`<label class="fl" for="f_${k}">${label}</label><textarea id="f_${k}" rows="${k==="body"||k==="b"?8:3}">${esc(v)}</textarea>`;
+    else h+=`<label class="fl" for="f_${k}">${label}</label><input id="f_${k}" type="${type}" value="${esc(v)}">`;
+  }
+  const hasImg=IMGKEY[kind]&&!(kind==="research"&&!/^t\d$/.test(id)), multi=kind==="gallery";
+  ED.hasImg=hasImg;
+  if(hasImg){
+    const ids=multi?gIds(it):[], src=multi?(ids.length?"":imgOf(it,400,400)):imgOf(it,400,400,IMGKEY[kind]);
+    h+=`<label class="fl" for="f_file">${IMGNAME[kind]} ${multi?"추가 (여러 장을 한 번에 고를 수 있습니다)":src?"(새 파일을 고르면 교체됩니다)":""}</label>`+(ASSETS?`<input id="f_file" type="file" accept="image/png,image/jpeg,image/webp,image/gif"${multi?" multiple":""}>`:`<p class="mmsg">이 화면에서는 이미지를 올릴 수 없습니다.</p>`)
+      +(ids.length?`<div class="mthumbs">${ids.map((x,i)=>`<label><img src="${esc(blobUrl(x))}" alt="사진 ${i+1}"><span><input type="checkbox" id="rm_${i}"> 삭제</span></label>`).join("")}</div>`:"")
+      +(src?`<img class="mprev" src="${esc(src)}" alt="현재 이미지">`:"");
+  }
+  h+=`<p class="mmsg" id="mMsg" role="status"></p><div class="mbtns">${id&&kind!=="pi"&&kind!=="research"?`<button type="button" class="btn del" id="mDel">삭제</button>`:""}<span style="flex:1"></span><button type="button" class="btn sec" id="mCancel">취소</button><button type="submit" class="btn pri" id="mSave">저장</button></div>`;
+  $("#mForm").innerHTML=h; $("#modal").hidden=false;
+  const first=$("#mForm input:not([type=file]):not([hidden]),#mForm textarea,#mForm select")||$("#f_file"); first&&first.focus();
+}
+function closeEditor(){ $("#modal").hidden=true; $("#mForm").innerHTML=""; ED=null; LOGIN=false; }
+function busy(b){ $$("#mForm button").forEach(x=>x.disabled=b); if(b) $("#mMsg").textContent="저장 중…"; }
+async function prepImage(file){
+  if(!/^image\/(png|jpeg|webp)$/.test(file.type)) return file;
+  const bmp=await createImageBitmap(file), sc=Math.min(1,2000/Math.max(bmp.width,bmp.height));
+  if(sc===1&&file.size<1.5e6) return file;
+  const c=document.createElement("canvas"); c.width=Math.round(bmp.width*sc); c.height=Math.round(bmp.height*sc);
+  const x=c.getContext("2d"); x.fillStyle="#fff"; x.fillRect(0,0,c.width,c.height); x.drawImage(bmp,0,0,c.width,c.height);
+  return await new Promise(r=>c.toBlob(b=>r(b||file),"image/jpeg",.9));
+}
+async function saveEditor(){
+  const {kind,coll,id,it}=ED, key=IMGKEY[kind], data={};
+  for(const [k,,type] of FORMS[kind]){ const el=$("#f_"+k); data[k]=type==="checkbox"?(el.checked?1:0):type==="number"?(el.value===""?null:Number(el.value)):el.value.trim(); }
+  if(REQ[kind].some(k=>!data[k])){ $("#mMsg").textContent="필수 항목이 비어 있습니다: "+REQ[kind].filter(k=>!data[k]).map(k=>FORMS[kind].find(f=>f[0]===k)[1]).join(", "); return; }
+  for(const k of ["l","url"]) if(data[k]&&!safeUrl(data[k])){ $("#mMsg").textContent="링크는 https:// 로 시작해야 합니다."; return; }
+  const files=$("#f_file")?[...$("#f_file").files]:[], file=files[0];
+  if(kind==="pi"&&!file){ $("#mMsg").textContent="올릴 사진 파일을 골라 주세요."; return; }
+  if(kind==="pubs") data.n=it.n??Date.now();
+  if(kind==="pi") data.g="pi";
+  if(kind==="people"&&data.o==null) data.o=Math.max(0,...eff("people").filter(m=>m.g===data.g).map(m=>Number(m.o)||0))+10;
+  busy(true);
+  try{
+    let gone=[];
+    if(kind==="gallery"){
+      const ex=gIds(it), keep=ex.filter((_,i)=>!($("#rm_"+i)&&$("#rm_"+i).checked)), added=[];
+      for(const f of files){ const blob=await prepImage(f); added.push((await ASSETS.upload(blob,{type:blob.type,folder:coll})).id); }
+      data.imgs=keep.concat(added); if(data.imgs[0]) data.img=data.imgs[0];
+      gone=ex.filter(x=>!keep.includes(x));
+    } else if(file){ const blob=await prepImage(file), up=await ASSETS.upload(blob,{type:blob.type,folder:coll}); if(it[key]) gone=[it[key]]; data[key]=up.id; }
+    else if(key&&it[key]) data[key]=it[key];
+    const ref=id?DBH.doc(coll+"/"+id):DBH.collection(coll).doc();
+    await ref.set(data);
+    if(ASSETS) gone.forEach(x=>ASSETS.delete(x).catch(()=>{}));
+    closeEditor();
+  }catch(e){ busy(false); $("#mMsg").textContent="저장하지 못했습니다 ("+((e&&e.code)||"error")+"). 파일 형식·크기를 확인하고 다시 시도해 주세요."; }
+}
+async function delEditor(){
+  if(!ED.sure){ ED.sure=1; $("#mDel").textContent="삭제 확인 (한 번 더 누르기)"; return; }
+  const {kind,coll,id,it}=ED; busy(true);
+  try{
+    const ref=DBH.doc(coll+"/"+id);
+    if(BASE[coll].some(b=>b.id===id)) await ref.set({deleted:true}); else await ref.delete();
+    const as=kind==="gallery"?gIds(it):[it[IMGKEY[kind]]].filter(okId); if(ASSETS) as.forEach(x=>ASSETS.delete(x).catch(()=>{}));
+    closeEditor();
+  }catch(e){ busy(false); $("#mMsg").textContent="삭제하지 못했습니다 ("+((e&&e.code)||"error")+")."; }
+}
+/* Admin login: checked by Supabase Auth. Only accounts listed in the admins table may write. */
+let AUTH=false, LOGIN=false, SB=null;
+function setAdmin(on){
+  ADMIN=on; document.body.classList.toggle("admin",ADMIN);
+  $("#admFab").textContent=ADMIN?"편집 끝내기":"관리자 모드"; $("#admFab").setAttribute("aria-pressed",ADMIN); renderAll();
+}
+function setAuth(on){ AUTH=on; $("#admFab").hidden=!on; $("#admOut").hidden=!on; $("#admLink").hidden=on||!SB; if(!on&&ADMIN) setAdmin(false); }
+function openLogin(){
+  LOGIN=true; $("#mTitle").textContent="관리자 로그인";
+  $("#mForm").innerHTML=`<label class="fl" for="f_uid">아이디</label><input id="f_uid" type="text" autocomplete="username" autocapitalize="none" spellcheck="false"><label class="fl" for="f_pw">패스워드</label><input id="f_pw" type="password" autocomplete="current-password"><p class="mmsg" id="mMsg" role="status"></p><div class="mbtns"><span style="flex:1"></span><button type="button" class="btn sec" id="mCancel">취소</button><button type="submit" class="btn pri" id="mSave">로그인</button></div>`;
+  $("#modal").hidden=false; $("#f_uid").focus();
+}
+async function isAdmin(){ try{ const r=await SB.rpc("is_admin"); return r.data===true; }catch(e){ return false; } }
+async function doLogin(){
+  const uid=$("#f_uid").value.trim(), pw=$("#f_pw").value;
+  if(!uid||!pw){ $("#mMsg").textContent="아이디와 패스워드를 입력해 주세요."; return; }
+  $$("#mForm button").forEach(x=>x.disabled=true); $("#mMsg").textContent="확인 중…";
+  let msg="";
+  try{
+    const r=await SB.auth.signInWithPassword({email:uid.includes("@")?uid:uid+"@"+LOGIN_DOMAIN,password:pw});
+    if(r.error) msg="아이디 또는 패스워드가 맞지 않습니다.";
+    else if(!(await isAdmin())){ await SB.auth.signOut(); msg="이 계정에는 관리자 권한이 없습니다."; }
+  }catch(e){ msg="서버에 연결하지 못했습니다. 잠시 후 다시 시도해 주세요."; }
+  if(msg){ $$("#mForm button").forEach(x=>x.disabled=false); $("#mMsg").textContent=msg; $("#f_pw").value=""; return; }
+  closeEditor(); setAuth(true); setAdmin(true);
+}
+$("#mForm").addEventListener("submit",e=>{e.preventDefault(); if(LOGIN) doLogin(); else if(ED) saveEditor();});
+$("#modal").addEventListener("click",e=>{ if(e.target.id==="modal"||e.target.id==="mCancel") closeEditor(); else if(e.target.id==="mDel") delEditor(); });
+/* ---------- detail viewer ---------- */
+let VW=null;
+function drawGal(){
+  const {list,i,it}=VW, n=list.length;
+  $("#vBody").innerHTML=`<div class="vstage">${n?`<img id="vMain" src="${esc(list[i])}" alt="${esc(it.t)}">`:`<div class="vnone">Photos will be added soon.</div>`}${n>1?`<button class="vnav prev" data-v="-1" aria-label="Previous photo">‹</button><button class="vnav next" data-v="1" aria-label="Next photo">›</button><span class="vcount">${i+1} / ${n}</span>`:""}</div>${n>1?`<div class="vthumbs">${list.map((x,k)=>`<button data-vi="${k}" class="${k===i?"on":""}" aria-label="Photo ${k+1}"><img src="${esc(x)}" alt=""></button>`).join("")}</div>`:""}<div class="vtxt"><p class="eyebrow">${esc(it.d)}</p><h2>${esc(it.t)}</h2></div>`;
+  const m=$("#vMain"); if(m) m.onerror=()=>{m.outerHTML=`<div class="vnone">This photo could not be loaded.</div>`;};
+}
+function openViewer(kind,id){
+  const it=eff(kind).find(x=>x.id===id); if(!it) return;
+  if(kind==="gallery"){ VW={kind,it,list:gSrcs(it),i:0}; drawGal(); }
+  else{
+    VW={kind,it,list:[],i:0}; const src=imgOf(it), u=safeUrl(it.url);
+    $("#vBody").innerHTML=`${src?`<div class="vimg"><img id="vMain" src="${esc(src)}" alt=""></div>`:""}<div class="vtxt"><p class="eyebrow">${esc(it.d)}${it.k?" · "+esc(it.k):""}</p><h2 lang="ko">${esc(it.t)}</h2>${it.body?`<div class="vbody" lang="ko">${esc(it.body)}</div>`:""}${u?`<p><a class="more" href="${esc(u)}" target="_blank" rel="noopener">Read the original article</a></p>`:""}</div>`;
+    const m=$("#vMain"); if(m) m.onerror=()=>m.parentNode.remove();
+  }
+  $("#viewer").hidden=false; $(".vclose").focus();
+}
+function closeViewer(){ $("#viewer").hidden=true; $("#vBody").innerHTML=""; VW=null; }
+function stepGal(d){ if(!VW||VW.list.length<2) return; VW.i=(VW.i+d+VW.list.length)%VW.list.length; drawGal(); }
+$("#viewer").addEventListener("click",e=>{
+  const t=e.target; if(t.id==="viewer"||t.closest("[data-close]")) return closeViewer();
+  const nv=t.closest("[data-v]"), th=t.closest("[data-vi]");
+  if(nv) stepGal(Number(nv.dataset.v)); else if(th&&VW){ VW.i=Number(th.dataset.vi); drawGal(); }
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){ if(ED||LOGIN) closeEditor(); else if(VW) closeViewer(); return; }
+  if(VW&&!ED&&e.key==="ArrowLeft") stepGal(-1); else if(VW&&!ED&&e.key==="ArrowRight") stepGal(1);
+  else if((e.key==="Enter"||e.key===" ")&&e.target.matches&&e.target.matches("[data-view]")){ e.preventDefault(); const [k,...r]=e.target.dataset.view.split(":"); openViewer(k,r.join(":")); }
+});
+document.addEventListener("click",e=>{
+  const b=e.target.closest&&e.target.closest("[data-edit],[data-add]");
+  if(!b){ const v=e.target.closest&&e.target.closest("[data-view]"); if(v&&!e.target.closest("a")){ const [k,...r]=v.dataset.view.split(":"); openViewer(k,r.join(":")); } return; }
+  if(!ADMIN) return;
+  if(b.dataset.add) openEditor(b.dataset.add,null,b.dataset.g); else { const i=b.dataset.edit.indexOf(":"); i<0?openEditor(b.dataset.edit):openEditor(b.dataset.edit.slice(0,i),b.dataset.edit.slice(i+1)); }
+});
+$("#admFab").addEventListener("click",()=>{ if(ADMIN) setAdmin(false); else if(AUTH) setAdmin(true); else openLogin(); });
+$("#admLink").addEventListener("click",openLogin);
+$("#admOut").addEventListener("click",async()=>{ try{ await SB.auth.signOut(); }catch(e){} setAuth(false); });
+/* ---------- Supabase: content table + storage bucket ---------- */
+const sbFail = e => { throw {code:(e&&(e.code||e.statusCode||e.message))||"error"}; };
+(async()=>{
+  if(typeof supabase==="undefined"||!/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(SUPABASE_URL)||SUPABASE_KEY.startsWith("YOUR")) return;   // not configured: built-in content only
+  SB=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+  // The editor code talks to these two small adapters.
+  DBH={
+    doc(path){ const i=path.indexOf("/"), kind=path.slice(0,i), id=path.slice(i+1);
+      return { id,
+        async set(data){ const r=await SB.from("content").upsert({kind,id,data,updated_at:new Date().toISOString()}); if(r.error) sbFail(r.error); OVER[kind][id]=data; renderAll(); },
+        async delete(){ const r=await SB.from("content").delete().eq("kind",kind).eq("id",id); if(r.error) sbFail(r.error); delete OVER[kind][id]; renderAll(); } }; },
+    collection(kind){ return { doc:()=>DBH.doc(kind+"/x"+Date.now().toString(36)+Math.random().toString(36).slice(2,8)) }; }
+  };
+  ASSETS={
+    async upload(blob,o){ const ext=({"image/png":"png","image/jpeg":"jpg","image/webp":"webp","image/gif":"gif"})[blob.type]||"jpg";
+      const path=(o&&o.folder||"misc")+"/"+Date.now().toString(36)+Math.random().toString(36).slice(2,8)+"."+ext;
+      const r=await SB.storage.from(BUCKET).upload(path,blob,{contentType:blob.type,cacheControl:"31536000",upsert:false}); if(r.error) sbFail(r.error); return {id:path}; },
+    async delete(path){ const r=await SB.storage.from(BUCKET).remove([path]); if(r.error) sbFail(r.error); return {deleted:true}; }
+  };
+  $("#admLink").hidden=false;
+  try{
+    const r=await SB.from("content").select("kind,id,data");
+    if(!r.error&&Array.isArray(r.data)){ for(const row of r.data) if(OVER[row.kind]) OVER[row.kind][row.id]=row.data||{}; renderAll(); }
+  }catch(e){}
+  try{ const s=await SB.auth.getSession(); if(s.data&&s.data.session&&await isAdmin()) setAuth(true); }catch(e){}
+})();
+
+/* ---------- generative art ---------- */
+function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function fit(c){const d=Math.min(window.devicePixelRatio||1,2),w=c.clientWidth,h=c.clientHeight;if(!w||!h)return null;c.width=w*d;c.height=h*d;const x=c.getContext("2d");x.setTransform(d,0,0,d,0,0);return{x,w,h};}
+function drawArt(c){
+  const f=fit(c); if(!f) return; const {x,w,h}=f, R=rng(c.dataset.art.length*977+7);
+  const g=x.createLinearGradient(0,0,w,h); g.addColorStop(0,"#eef3fa"); g.addColorStop(1,"#dce7f6"); x.fillStyle=g; x.fillRect(0,0,w,h);
+  if(c.dataset.art==="fiber"){
+    // random electrospun mat, one highlighted core–shell fiber with in-situ nanoparticles
+    for(let i=0;i<70;i++){const a=R()*Math.PI,cx=R()*w,cy=R()*h,L=Math.max(w,h),b=(R()-.5)*120;
+      x.beginPath();x.moveTo(cx-Math.cos(a)*L,cy-Math.sin(a)*L);x.quadraticCurveTo(cx+b,cy-b,cx+Math.cos(a)*L,cy+Math.sin(a)*L);
+      x.lineWidth=.6+R()*2.6;x.strokeStyle=`rgba(15,79,168,${.08+R()*.22})`;x.stroke();}
+    const y0=h*.58; x.lineCap="round";
+    const path=()=>{x.beginPath();x.moveTo(-20,y0+30);x.bezierCurveTo(w*.3,y0-h*.35,w*.6,y0+h*.3,w+20,y0-h*.2);};
+    path();x.lineWidth=18;x.strokeStyle="rgba(15,79,168,.28)";x.stroke();
+    path();x.lineWidth=6;x.strokeStyle="#0a2040";x.stroke();
+    for(let i=0;i<26;i++){const t=R(),mt=1-t;
+      const px=mt*mt*mt*-20+3*mt*mt*t*w*.3+3*mt*t*t*w*.6+t*t*t*(w+20);
+      const py=mt*mt*mt*(y0+30)+3*mt*mt*t*(y0-h*.35)+3*mt*t*t*(y0+h*.3)+t*t*t*(y0-h*.2);
+      x.beginPath();x.arc(px+(R()-.5)*14,py+(R()-.5)*14,1.6+R()*2.2,0,7);x.fillStyle="#3d86d8";x.fill();}
+  } else if(c.dataset.art==="nano"){
+    // nanotransfer-printed array: hexagonal dot lattice meeting a line grating
+    const p=Math.max(14,w/34);
+    for(let r=0,y=p;y<h;y+=p*.866,r++){for(let xx=(r%2?p/2:0)+p/2;xx<w*.62;xx+=p){
+      const d=Math.hypot(xx-w*.3,y-h*.5)/(w*.5),rad=Math.max(.8,p*.3*(1-d*.75));
+      x.beginPath();x.arc(xx,y,rad,0,7);x.fillStyle=`rgba(10,32,64,${.85-d*.55})`;x.fill();}}
+    for(let xx=w*.66,i=0;xx<w+p;xx+=p*.55,i++){x.fillStyle=`rgba(15,79,168,${.25+.5*((i%5)/5)})`;x.fillRect(xx,0,p*.22,h);}
+    x.fillStyle="rgba(127,193,255,.35)";x.fillRect(w*.62,0,w*.035,h);
+  } else {
+    // skin patch: concentric contours, microneedle row, biosignal trace
+    const cx=w*.5,cy=h*.46;
+    for(let i=6;i>=1;i--){const rw=w*.085*i,rh=h*.1*i;x.beginPath();x.roundRect(cx-rw,cy-rh,rw*2,rh*2,Math.min(rw,rh)*.6);
+      x.strokeStyle=`rgba(15,79,168,${.1+.09*(7-i)})`;x.lineWidth=1.4;x.stroke();}
+    x.beginPath();x.roundRect(cx-w*.085,cy-h*.1,w*.17,h*.2,h*.06);x.fillStyle="#0a2040";x.fill();
+    x.beginPath();const by=h*.86;x.moveTo(0,by);
+    for(let px=0;px<=w;px+=2){const u=(px/w*5)%1;let v=Math.sin(u*6.283)*3;
+      if(u>.42&&u<.46)v=-(u-.42)/.04*h*.16; else if(u>=.46&&u<.5)v=-h*.16+(u-.46)/.04*h*.24; else if(u>=.5&&u<.54)v=h*.08-(u-.5)/.04*h*.08;
+      x.lineTo(px,by+v);}
+    x.strokeStyle="#0f4fa8";x.lineWidth=2;x.lineJoin="round";x.stroke();
+    for(let i=0;i<9;i++){const nx=cx-w*.068+i*w*.017;x.beginPath();x.moveTo(nx-w*.006,cy+h*.1);x.lineTo(nx,cy+h*.1+h*.07);x.lineTo(nx+w*.006,cy+h*.1);x.fillStyle="#3d86d8";x.fill();}
+  }
+}
+function drawAllArt(){$$("canvas[data-art]").forEach(drawArt);}
+
+/* hero: slowly drifting electrospun web with nanoparticle beads */
+const hero=(()=>{
+  const c=$("#heroCanvas"),R=rng(20250301),still=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const F=Array.from({length:84},()=>({a:(R()-.5)*2.6,o:(R()-.5)*1.5,amp:12+R()*46,fq:.002+R()*.005,ph:R()*6.28,sp:(R()-.5)*.35,w:.4+R()*1.5,al:.07+R()*.26,hot:R()<.12,beads:R()<.3?Array.from({length:3+(R()*5|0)},()=>R()*2-1):[]}));
+  let raf=0,t0=0,dim=null;
+  function frame(ts){
+    if(!dim) dim=fit(c); if(!dim){raf=0;return;}
+    const {x,w,h}=dim,t=(ts-t0)/1000,L=Math.hypot(w,h)*.6;
+    x.clearRect(0,0,w,h);
+    for(const f of F){const ca=Math.cos(f.a),sa=Math.sin(f.a),ox=w*.62-sa*f.o*h*.6,oy=h*.5+ca*f.o*h*.6;
+      const pt=s=>{const v=f.amp*Math.sin(f.fq*s+f.ph+t*f.sp)+f.amp*.4*Math.sin(f.fq*2.7*s-t*f.sp*1.6);return[ox+ca*s-sa*v,oy+sa*s+ca*v];};
+      x.beginPath();for(let s=-L;s<=L;s+=24){const p=pt(s);s===-L?x.moveTo(p[0],p[1]):x.lineTo(p[0],p[1]);}
+      x.lineWidth=f.w;x.strokeStyle=f.hot?`rgba(127,193,255,${f.al+.25})`:`rgba(214,230,255,${f.al})`;x.stroke();
+      for(const b of f.beads){const p=pt(b*L);x.beginPath();x.arc(p[0],p[1],1.6+f.w,0,7);x.fillStyle="rgba(127,193,255,.85)";x.fill();}}
+    raf=still?0:requestAnimationFrame(frame);
+  }
+  return{start(){dim=null;if(!raf)raf=requestAnimationFrame(ts=>{t0=t0||ts;frame(ts);});},stop(){cancelAnimationFrame(raf);raf=0;}};
+})();
+
+/* ---------- routing ---------- */
+const PAGES=["home","research","pi","researchers","alumni","publications","patents","news","gallery","join"], GROUPS={people:["pi","researchers","alumni"],pubs:["publications","patents"]};
+function route(first){
+  const hsh=location.hash.slice(1), id=hsh==="people"?"pi":PAGES.includes(hsh)?hsh:"home";
+  $$(".page").forEach(p=>p.classList.toggle("on",p.dataset.page===id));
+  $$("#links a").forEach(a=>{const on=a.dataset.group?GROUPS[a.dataset.group].includes(id):a.getAttribute("href")==="#"+id; on?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current");});
+  setMenu(false);
+  if(first!==true) window.scrollTo(0,0);
+  drawAllArt(); id==="home"?hero.start():hero.stop();
+}
+window.addEventListener("hashchange",route);
+const isMobileNav=()=>matchMedia("(max-width:820px)").matches;
+function setMenu(open){
+  $("#links").classList.toggle("open",open); $("#burger").setAttribute("aria-expanded",open); $("#burger").setAttribute("aria-label",open?"Close menu":"Open menu");
+  const cur=($(".page.on")||{dataset:{}}).dataset.page;
+  $$(".dd").forEach(d=>{ const on=open&&GROUPS[$("a",d).dataset.group].includes(cur); d.classList.toggle("open",on); $("a",d).setAttribute("aria-expanded",on); });
+}
+$("#burger").addEventListener("click",()=>setMenu(!$("#links").classList.contains("open")));
+$$(".dd>a").forEach(a=>a.addEventListener("click",e=>{
+  if(!isMobileNav()) return;                       // desktop: hover menu, link goes to the first page
+  e.preventDefault(); const on=a.parentNode.classList.toggle("open"); a.setAttribute("aria-expanded",on);
+}));
+let rz;window.addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>{drawAllArt();if($('.page.on').dataset.page==="home")hero.start();},150);});
+route(true);
+</script>
+</body>
+</html>
