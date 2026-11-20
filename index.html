@@ -72,6 +72,7 @@ p{margin:0}
 .ddm{display:none;position:absolute;top:100%;left:-18px;min-width:170px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:8px;box-shadow:0 12px 32px rgba(10,32,64,.14);flex-direction:column}
 .dd:hover .ddm,.dd:has(a:focus-visible) .ddm{display:flex}
 .dd.shut .ddm{display:none!important}
+.dd.tapopen .ddm{display:flex}
 .ddm a{padding:9px 12px;border-radius:8px;font-size:14px;white-space:nowrap}
 .ddm a:hover{background:var(--bg-alt)}
 .sub-h:first-child{margin-top:0;padding-top:0;border-top:0}
@@ -1686,13 +1687,20 @@ function setMenu(open){
   $$(".dd").forEach(d=>{ const on=open&&GROUPS[$("a",d).dataset.group].includes(cur); d.classList.toggle("open",on); $("a",d).setAttribute("aria-expanded",on); });
 }
 $("#burger").addEventListener("click",()=>setMenu(!$("#links").classList.contains("open")));
+let lastTouch=false;
+window.addEventListener("pointerdown",e=>{ lastTouch=e.pointerType!=="mouse"; if(!e.target.closest(".dd")) $$(".dd.tapopen").forEach(x=>{x.classList.remove("tapopen");$("a",x).setAttribute("aria-expanded",false);}); },true);
 $$(".dd").forEach(d=>{
-  d.addEventListener("click",e=>{ if(isMobileNav()||!e.target.closest("a")) return; d.classList.add("shut"); if(document.activeElement&&d.contains(document.activeElement)&&e.detail>0) document.activeElement.blur(); });
+  d.addEventListener("click",e=>{ if(isMobileNav()||!e.target.closest("a")) return;
+    if(lastTouch){ if(e.target.closest(".ddm")){ d.classList.remove("tapopen"); d.classList.add("shut"); setTimeout(()=>d.classList.remove("shut"),600); } return; }
+    d.classList.add("shut"); if(document.activeElement&&d.contains(document.activeElement)&&e.detail>0) document.activeElement.blur(); });
   d.addEventListener("mouseleave",()=>d.classList.remove("shut"));
   d.addEventListener("focusin",e=>{ if(e.target.matches(":focus-visible")) d.classList.remove("shut"); });
 });
 $$(".dd>a").forEach(a=>a.addEventListener("click",e=>{
-  if(!isMobileNav()) return;                       // desktop: hover menu, link goes to the first page
+  if(!isMobileNav()){                              // desktop: hover menu, link goes to the first page
+    if(!lastTouch) return;                         // touch on a wide screen (tablet): first tap opens the submenu instead
+    e.preventDefault(); const d=a.parentNode; $$(".dd.tapopen").forEach(x=>{ if(x!==d){x.classList.remove("tapopen");$("a",x).setAttribute("aria-expanded",false);} });
+    d.classList.remove("shut"); const on=d.classList.toggle("tapopen"); a.setAttribute("aria-expanded",on); return; }
   e.preventDefault(); const on=a.parentNode.classList.toggle("open"); a.setAttribute("aria-expanded",on);
 }));
 let rz;window.addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>{drawAllArt();if($('.page.on').dataset.page==="home")hero.start();},150);});
