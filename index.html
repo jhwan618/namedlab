@@ -60,7 +60,7 @@ p{margin:0}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:52px}
 .brand{display:flex;align-items:center;gap:10px;color:var(--ink);font-weight:700;letter-spacing:-.01em;font-size:17px}
 .brand:hover{text-decoration:none}
-.brand img{height:26px;width:auto}
+.brand img{height:32px;width:auto}
 .brand small{font-weight:500;color:var(--muted);font-size:12px;letter-spacing:.02em}
 .links{display:flex;gap:28px;align-items:center}
 .links a{color:var(--ink);font-size:14px;opacity:.82}
@@ -504,6 +504,9 @@ footer{background:#071730;color:#93a5c2;font-size:13px;padding:36px 0}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 footer a{color:#c5d3e8}
 </style>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 </head>
 <body>
 
@@ -1368,7 +1371,7 @@ function afterPubRender(page){
   const run=()=>page.forEach(p=>{ if(okId(p.fig)||p.wfig) figUrl(p); });
   (window.requestIdleCallback||(f=>setTimeout(f,300)))(run);
 }
-if(REMOTE_IMAGES){const lg=$("#logo");lg.onload=()=>lg.style.display="block";lg.onerror=()=>lg.remove();lg.src=wix("1fcfb8_7b594fe541f94c589e77547c68ec7d1a~mv2.png",182,146);}
+if(REMOTE_IMAGES){const lg=$("#logo");lg.onload=()=>lg.style.display="block";lg.onerror=()=>lg.remove();lg.src="logo.svg";}
 
 /* ---------- admin mode (owner and editors only) ---------- */
 const FORMS={
